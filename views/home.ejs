@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <title>ED KKU Lifelong Learning</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="" name="keywords">
+        <meta content="" name="description">
+        <link rel="icon" type="image/x-icon" href="img/EDU_KKU_Symbol.svg.png"/>
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap" rel="stylesheet">
+
+        <!-- Icon Font Stylesheet -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+        <!-- Icons. Uncomment required icon fonts -->
+        <link rel="stylesheet" href="lib/fonts/boxicons.css" />
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/animate/animate.min.css" rel="stylesheet">
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <!-- Spinner Start -->
+        <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-grow text-primary" role="status"></div>
+        </div>
+        <!-- Spinner End -->
+
+        <!-- Navbar Start -->
+        <div class="container-fluid bg-white">
+            <div class="container">
+                <nav class="navbar navbar-dark navbar-expand-lg py-lg-0">
+                    <a href="/" class="navbar-brand">
+                        <h1 class="text-primary mb-0 display-5"><img src="img\LogoEDNew.png" height="45" alt="Brand Logo" class="adjust-top"></h1>
+                    </a>
+                    <button class="navbar-toggler bg-primary" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                        <span class="fa fa-bars text-dark"></span>
+                    </button>
+                    <div class="collapse navbar-collapse me-n3" id="navbarCollapse">
+                        <div class="navbar-nav ms-auto">
+                            <a href="/" class="nav-item nav-link active">หน้าแรก</a>
+                            <a href="#A" class="nav-item nav-link">ปริญญาตรี</a>  
+                            <a href="#B" class="nav-item nav-link">ปริญญาโท</a> 
+                            <a href="#C" class="nav-item nav-link">ปริญญาเอก</a> 
+                            <a href="#D" class="nav-item nav-link">Contact</a>   
+                            <div class="center-container">
+                                <% if (isLoggedIn) { %>
+                                    <!-- User -->
+                                    <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                                        <a class="nav-link dropdown-user hide-arrow" href="javascript:void(0);">
+                                        <div class="avatar avatar-online">
+                                            <img src="img/user-1.jpg" alt class="w-px-40 h-auto rounded-circle" />
+                                        </div>
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                            <div class="d-flex">
+                                                <div class="flex-shrink-0 me-3">
+                                                <div class="avatar avatar-online">
+                                                    <img src="img/user-1.jpg" alt class="w-px-40 h-auto rounded-circle" />
+                                                </div>
+                                                </div>
+                                                <div class="flex-grow-1">
+                                                <span class="fw-semibold d-block"><%= name %></span>
+                                                <small class="text-muted">Admin</small>
+                                                </div>
+                                            </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="dropdown-divider"></div>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                            <i class="bx bx-user me-2"></i>
+                                            <span class="align-middle">My Profile</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                            <i class="bx bx-cog me-2"></i>
+                                            <span class="align-middle">Settings</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="dropdown-divider"></div>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="/logout">
+                                            <i class="bx bx-power-off me-2"></i>
+                                            <span class="align-middle">Log Out</span>
+                                            </a>
+                                        </li>
+                                        </ul>
+                                    </li>                                    
+                                    <!--/ User -->              
+                                <% } else { %>
+                                    <button class="btn btn-warning" onclick="window.location.href='/login'">Log In</button>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!-- Navbar End -->
+        
+
+        <!-- Carousel Start -->
+        <div class="container-fluid carousel px-0 mb-5 pb-5">
+            <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="First slide"></li>
+                    <li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
+                </ol>
+                <div class="carousel-inner" role="listbox">
+                    <div class="carousel-item active">
+                        <img src="img/kku_building.jpg" class="img-fluid w-100" alt="First slide">
+                        <div class="carousel-caption">
+                            <div class="container carousel-content">
+                                <h4 class="text-white mb-4 animated slideInDown">คณะศึกษาศาสตร์ มหาวิทยาลัยขอนแก่น</h4>
+                                <h1 class="text-white display-1 mb-4 animated slideInDown">ฝ่ายการศึกษา<br>และบริการวิชาการ</h1>
+                                <a href="" class="me-2"><button type="button" class="px-5 py-3 btn btn-primary border-2 rounded-pill animated slideInDown">Read More</button></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/kku_building.jpg" class="img-fluid w-100" alt="Second slide">
+                        <div class="carousel-caption">
+                            <div class="container carousel-content">
+                                <h4 class="text-white mb-4 animated slideInDown">คณะศึกษาศาสตร์ มหาวิทยาลัยขอนแก่น</h4>
+                                <h1 class="text-white display-1 mb-4 animated slideInDown">ฝ่ายการศึกษา<br>และบริการวิชาการ</h1>
+                                <a href="" class="me-2"><button type="button" class="px-5 py-3 btn btn-primary border-2 rounded-pill animated slideInDown">Read More</button></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev btn btn-primary border border-2 border-start-0 border-primary" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next btn btn-primary border border-2 border-end-0 border-primary" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+        <!-- Carousel End -->
+
+        <!-- Dashboard Start -->
+        <!-- ระดับปริญญาตรี Start -->
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay=".3s">
+                        <div class="">
+                            <img src="img/01-1.jpg" class="img-fluid h-100" alt="img">
+                        </div>
+                    </div>                    
+                    <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay=".6s">
+                        <div class="about-item overflow-hidden">                            
+                            <h1 class="display-5 mb-2" id="A">ระดับปริญญาตรี</h1>
+                            <!-- 2567 Start -->
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2567</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>565<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 565 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>15,980<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 15,980 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 28.28</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 565 คน จากผู้สมัคร 15,980 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 29.54</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 541 คน จากผู้สมัคร 15,980 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2567 End -->
+                            <!-- 2566 Start -->
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2566</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>530<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 530 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>13,282<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 13,282 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 25.06</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 530 คน จากผู้สมัคร 13,282 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 25.35</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 524 คน จากผู้สมัคร 13,282 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2566 End -->
+                            <!-- 2565 Start -->
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2565</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>530<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 530 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>10,606<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 10,606 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 20.01</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 530 คน จากผู้สมัคร 10,606 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 20.71</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 512 คน จากผู้สมัคร 10,606 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2565 End -->
+                            <!-- 2564 Start -->
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2564</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>600<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 600 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>11,463<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 11,463 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 19.11</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 600 คน จากผู้สมัคร 11,463 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 19.70</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 582 คน จากผู้สมัคร 11,463 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2565 End -->
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div> 
+        <!-- ระดับปริญญาตรี End -->
+        <!-- ระดับปริญญาโท Start -->
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay=".6s">                        
+                        <div class="about-item overflow-hidden">
+                            <div class="d-flex justify-content-end">
+                                <h1 class="display-5 mb-2" id="B">ระดับปริญญาโท</h1>
+                            </div>
+                            <!-- 2566/2 Start -->                            
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2566/2</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>20<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 20 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>27<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 27 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.35</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 20 คน จากผู้สมัคร 27 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.26</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 24 คน จากผู้สมัคร 27 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2566/2 End -->
+                            <!-- 2566/1 Start -->                            
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2566/1</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>252<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 252 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>265<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 265 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.05</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 252 คน จากผู้สมัคร 265 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.45</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 183 คน จากผู้สมัคร 265 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2566/1 End -->                            
+                            <!-- 2565/2 Start -->                            
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2565/2</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>24<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 24 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>51<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 51 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 2.13</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 24 คน จากผู้สมัคร 51 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.89</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 27 คน จากผู้สมัคร 51 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2565/2 End -->
+                            <!-- 2565/1 Start -->
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2565/1</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>260<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 260 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>266<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 266 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.02</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 260 คน จากผู้สมัคร 266 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 2.13</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 125 คน จากผู้สมัคร 266 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2565/1 End -->
+                            <!-- 2564/2 Start -->                            
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2564/2</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>53<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 53 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>37<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 37 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 0.70</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 53 คน จากผู้สมัคร 37 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.19</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 31 คน จากผู้สมัคร 37 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2564/2 End -->
+                            <!-- 2564/1 Start -->                            
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2564/1</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>250<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 250 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>444<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 444 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.78</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 250 คน จากผู้สมัคร 444 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 2.41</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 184 คน จากผู้สมัคร 444 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2564/1 End -->
+                        </div>                        
+                    </div>
+                    <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay=".3s">
+                        <div class="d-flex justify-content-center">
+                            <img src="img/01-2.jpg"  alt="img" height="730">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <!-- ระดับปริญญาโท End -->
+        <!-- ระดับปริญญาเอก Start -->
+        <div class="container-fluid py-5">
+            <div class="container py-5">
+                <div class="row g-5">
+                    <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay=".3s">
+                        <div class="">
+                            <img src="img/01-3.jpg" class="img-fluid h-100" alt="img">
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 wow fadeInUp" data-wow-delay=".6s">
+                        <div class="about-item overflow-hidden">                            
+                            <h1 class="display-5 mb-2"  id="C">ระดับปริญญาเอก</h1>
+                            <!-- 2566/2 Start -->                            
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2566/2</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>25<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 25 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>25<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 25 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 25 คน จากผู้สมัคร 25 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.09</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 23 คน จากผู้สมัคร 25 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2566/2 End -->
+                            <!-- 2566/1 Start -->                            
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2566/1</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>38<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 38 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>20<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 20 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 0.53</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 38 คน จากผู้สมัคร 20 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.43</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 14 คน จากผู้สมัคร 20 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2566/1 End -->
+                            <!-- 2565/2 Start -->                            
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2565/2</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>36<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 36 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>25<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 25 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 0.69</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 36 คน จากผู้สมัคร 25 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.19</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 21 คน จากผู้สมัคร 25 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2565/2 End -->
+                            <!-- 2565/1 Start -->                            
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2565/1</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>30<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 30 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>18<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 18 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 0.60</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 30 คน จากผู้สมัคร 18 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.13</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 16 คน จากผู้สมัคร 18 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2565/1 End -->
+                            <!-- 2564/2 Start -->                            
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2564/2</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>31<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 31 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>39<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 39 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.26</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 31 คน จากผู้สมัคร 39 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 2.17</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 18 คน จากผู้สมัคร 39 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2564/2 End -->
+                            <!-- 2564/1 Start -->                            
+                            <p class="fs-5" style="text-align: justify;">สถิติเกี่ยวกับกระบวนการรับนักศึกษา ปีการศึกษา 2564/1</p>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>54<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนรับ</h5>
+                                            <small>(Admission Quota)</small><br>
+                                            <small>จำนวนรับ 54 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">จำนวน<br>34<br>คน<br></h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>จำนวนผู้สมัคร</h5>
+                                            <small>(Number of Applicants)</small><br>
+                                            <small>จำนวนผู้สมัคร 34 คน</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 0.63</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การแข่งขัน</h5>
+                                            <small>รับ : สมัคร</small><br>
+                                            <small>(Acceptance Rate)</small><br>
+                                            <small>จำนวนรับ 54 คน จากผู้สมัคร 34 คน</small>  
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="text-center">
+                                        <div class="p-4 bg-primary rounded d-flex" style="align-items: center; justify-content: center; height: 130px;">
+                                            <h5 class="text-white">1 : 1.48</h5>
+                                        </div>
+                                        <div class="my-2">
+                                            <h5>อัตรา<br>การคัดเลือก</h5>
+                                            <small>คัดเลือก : สมัคร</small><br>
+                                            <small>(Selection Rate)</small><br>
+                                            <small>ผู้ที่ได้รับการคัดเลือก 54 คน จากผู้สมัคร 34 คน</small>   
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 2564/1 End -->                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        <!-- ระดับปริญญาเอก End -->
+        <!-- Dashboard End -->
+
+        <!-- Footer Start -->
+        <div class="container-fluid footer py-5"  id="D">
+            <div class="container py-5">
+                <div class="row g-4 footer-inner">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="text-white fw-bold mb-4">About</h4>
+                            <p>แบบประเมินการเข้าใช้เว็บไซต์ | <a class="text-primary" href="https://pdp.kku.ac.th/policy/680656708694016000?lang=th"> นโยบายส่วนบุคคล</a> | แผนผังเว็บไซต์ | <a class="text-primary" href="https://ednet.kku.ac.th"> เว็ปไซต์เดิม</a></p>
+                            <p class="mb-0">&copy; All rights reserved | Faculty of Education | Khon Kaen University</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="text-white fw-bold mb-4">Usefull Link</h4>
+                            <div class="d-flex flex-column align-items-start">
+                                <a class="btn btn-link ps-0" href="#"><i class="fa fa-check me-2"></i>หน้าแรก</a>
+                                <a class="btn btn-link ps-0" href="#A"><i class="fa fa-check me-2"></i>ปริญญาตรี</a>
+                                <a class="btn btn-link ps-0" href="#B"><i class="fa fa-check me-2"></i>ปริญญาโท</a>
+                                <a class="btn btn-link ps-0" href="#C"><i class="fa fa-check me-2"></i>ปริญญาเอก</a>
+                                <a class="btn btn-link ps-0" href="#D"><i class="fa fa-check me-2"></i>Contact</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="text-white fw-bold mb-4">Phone</h4>
+                            <div class="d-flex flex-column align-items-start">
+                                <a class="btn btn-link ps-0 text-start" href=""><i class="fa fa-phone me-2"></i>ระดับปริญญาตรี <br>&nbsp&nbsp&nbsp&nbsp 043-009700 ต่อ 45993</a>
+                                <a class="btn btn-link ps-0 text-start" href=""><i class="fa fa-phone me-2"></i>ระดับบัณฑิตศึกษา (โท-เอก) <br>&nbsp&nbsp&nbsp&nbsp 043-009700 ต่อ 45994</a>
+                                <a class="btn btn-link ps-0 text-start" href=""><i class="fa fa-phone me-2"></i>โครงการครูคืนถิ่น <br>&nbsp&nbsp&nbsp&nbsp 043-009700 ต่อ 45625</a>
+                                <a class="btn btn-link ps-0 text-start" href=""><i class="fa fa-phone me-2"></i>โครงการครูรัก(ษ์)ถิ่น <br>&nbsp&nbsp&nbsp&nbsp 043-009700 ต่อ 45998</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-item">
+                            <h4 class="text-white fw-bold mb-4">Contact Us</h4>
+                            <a href="" class="btn btn-link w-100 text-start ps-0 pb-3 border-bottom rounded-0"><i class="fa fa-map-marker-alt me-3"></i>คณะศึกษาศาสตร์ มหาวิทยาลัยขอนแก่น 123 หมู่ที่ 16 ถ. มิตรภาพ ตำบลในเมือง อำเภอเมืองขอนแก่น ขอนแก่น 40002</a>
+                            <a href="https://www.facebook.com/eduservice.ed.kku?locale=th_TH" class="btn btn-link w-100 text-start ps-0 py-3 border-bottom rounded-0"><i class="fab fa-facebook-f me-3"></i>facebook page:<br>งานบริการการศึกษา คณะศึกษาศาสตร์ มข.</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+
+
+
+
+        <!-- Copyright Start -->
+        <div class="container-fluid copyright bg-dark py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+                        <a href="#" class="text-primary mb-0 h2"><h1 class="text-primary mb-0 display-5"><img src="img\LogoEDNew.png" height="40" alt="Brand Logo" class="adjust-top"></h1></a>
+                    </div>
+                    <div class="col-md-4 copyright-btn text-center text-md-start mb-3 mb-md-0 flex-shrink-0">
+                        <a class="btn btn-primary rounded-circle me-3 copyright-icon" href="https://www.facebook.com/eduservice.ed.kku?locale=th_TH"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-primary rounded-circle me-3 copyright-icon" href="#"><i class="fab fa-line"></i></a>
+                        <a class="btn btn-primary rounded-circle me-3 copyright-icon" href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <div class="col-md-4 my-auto text-center text-md-end text-white">
+                        <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                        <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                        <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a><br>
+                        Distributed By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a><br>
+                        Website Customized By <a class="border-bottom" href="https://www.facebook.com/profile.php?id=100029998816317">Phongsky R.</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright End -->
+
+        
+        <!-- JavaScript Libraries -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/wow/wow.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+    </body>
+
+</html>
