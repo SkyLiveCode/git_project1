@@ -27,16 +27,10 @@ app.use((req, res, next) => {
 });
 
 
-
-
-
-
-
-
-
 // Use the router from routes/myRouter.js
 app.use('/', myRouter);
 
-app.listen(5500, () => {
-    console.log('Server is running on port 5500');
+const PORT = process.env.PORT || 5500;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
