@@ -13,7 +13,7 @@ const authRoute = require('./routes/authRoute');            // นำเข้�
 const calculateRoute = require('./routes/calculateRoute');  // นำเข้า calculateRoute สำหรับการจัดการเส้นทางการคำนวณ
 const cookieParser = require('cookie-parser'); // นำเข้าโมดูล cookie-parser สำหรับจัดการคุกกี้
 const session = require('express-session'); // นำเข้าโมดูล express-session สำหรับจัดการ session
-
+const { checkAuthenticated } = require('./middleware/authMiddleware'); // นำเข้าโมดูล middleware
 
 const app = express();                 // สร้างแอปพลิเคชัน Express
 const server = http.createServer(app); // สร้างเซิร์ฟเวอร์ HTTP
@@ -41,14 +41,6 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 } // กำหนดอายุคุกกี้เป็น 7 วัน
 }));
-
-// ฟังก์ชัน middleware สำหรับตรวจสอบการเข้าสู่ระบบ
-function checkAuthenticated(req, res, next) {
-  if (req.session.user) { // ถ้ามีข้อมูลผู้ใช้ใน session
-    return next(); // ดำเนินการต่อ
-  }
-  res.redirect('/'); // ถ้าไม่ได้เข้าสู่ระบบ เปลี่ยนเส้นทางไปที่หน้าแรก
-}
 
 // กำหนด middleware เพื่อป้องกันการเข้าถึง route สำหรับหน้าคำนวณ
 app.use('/calculate', checkAuthenticated, calculateRoute);
