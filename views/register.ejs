@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <!-- ลิงก์ไปยังไฟล์ CSS สำหรับสไตล์ของหน้าเว็บ -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+  <h1>Register</h1>
+  <!-- ถ้ามีข้อความแจ้งเตือน แสดงออกมา -->
+  <% if (typeof error !== 'undefined') { %>
+    <p style="color: red;"><%= error %></p>
+  <% } %>
+  <!-- ฟอร์มสำหรับการสมัครสมาชิก -->
+  <form id="registerForm" action="/register" method="POST">
+    <!-- ช่อง input สำหรับกรอกชื่อผู้ใช้ -->
+    <input type="text" id="name" name="name" placeholder="Name" required />
+    <!-- ช่อง input สำหรับกรอกอีเมล -->
+    <input type="email" id="email" name="email" placeholder="Email" required />
+    <!-- ช่อง input สำหรับกรอกรหัสผ่าน -->
+    <input type="password" id="password" name="password" placeholder="Password" required />
+    <!-- ปุ่มสำหรับส่งฟอร์มสมัครสมาชิก -->
+    <button type="submit">Register</button>
+  </form>
+  <!-- ลิงก์ไปยังไฟล์ socket.io.js เพื่อใช้ socket.io สำหรับการสื่อสารแบบ real-time -->
+  <script src="/socket.io/socket.io.js"></script>
+  <!-- ลิงก์ไปยังไฟล์ JavaScript ฝั่งลูกค้า -->
+  <script src="/assets/js/script.js"></script>
+</body>
+</html>

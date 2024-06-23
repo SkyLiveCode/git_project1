@@ -1,10 +1,10 @@
 {
-  "name": "web_kku_lll_v1_edit---nodejs",
+  "name": "at_prevent",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "nodemon ./bin/www"
   },
   "keywords": [],
   "author": "",
@@ -17,7 +17,10 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
-    "mysql2": "^3.9.7",
-    "nodemon": "^3.1.0"
+    "mysql2": "^3.10.1",
+    "nodemon": "^3.1.4",
+    "pdf-lib": "^1.17.1",
+    "qrcode": "^1.5.3",
+    "socket.io": "^4.7.5"
   }
 }
