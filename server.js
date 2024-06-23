@@ -14,10 +14,10 @@ const calculateRoute = require('./routes/calculateRoute');  // นำเข้�
 const cookieParser = require('cookie-parser'); // นำเข้าโมดูล cookie-parser สำหรับจัดการคุกกี้
 const session = require('express-session'); // นำเข้าโมดูล express-session สำหรับจัดการ session
 
-// สร้างแอปพลิเคชัน Express
-const app = express();
+
+const app = express();                 // สร้างแอปพลิเคชัน Express
 const server = http.createServer(app); // สร้างเซิร์ฟเวอร์ HTTP
-const io = socketIo(server); // สร้างเซิร์ฟเวอร์ Socket.IO
+const io = socketIo(server);           // สร้างเซิร์ฟเวอร์ Socket.IO
 
 // กำหนดค่า URL ของแอปพลิเคชันจาก environment variables หรือใช้ค่าเริ่มต้น
 const APP_URL = process.env.APP_URL || 'http://localhost:3000';
