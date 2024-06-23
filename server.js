@@ -1,22 +1,23 @@
 // โหลด environment variables จากไฟล์ .env
 require('dotenv').config();
+
 // นำเข้าโมดูลที่จำเป็น
-const express = require('express');    // นำเข้าโมดูล express
-const http = require('http');          // นำเข้าโมดูล http
-const socketIo = require('socket.io'); // นำเข้าโมดูล socket.io
+const express = require('express');    // นำเข้าโมดูล express สำหรับสร้างแอปพลิเคชันเว็บ
+const http = require('http');          // นำเข้าโมดูล http สำหรับสร้างเซิร์ฟเวอร์
+const socketIo = require('socket.io'); // นำเข้าโมดูล socket.io สำหรับการสื่อสารแบบ real-time
 const db = require('./config/database');  // นำเข้าโมดูลการเชื่อมต่อฐานข้อมูล
-const QRCode = require('qrcode');                 // นำเข้าโมดูล qrcode
-const { PDFDocument, rgb } = require('pdf-lib');  // นำเข้าโมดูล PDF generation
-const fs = require('fs');                         // นำเข้าโมดูล filesystem
-const authRoute = require('./routes/authRoute');            // นำเข้า authController
-const calculateRoute = require('./routes/calculateRoute');  // นำเข้า calculateRoute
+const QRCode = require('qrcode');                 // นำเข้าโมดูล qrcode สำหรับสร้าง QR code
+const { PDFDocument, rgb } = require('pdf-lib');  // นำเข้าโมดูล PDF generation สำหรับสร้าง PDF
+const fs = require('fs');                         // นำเข้าโมดูล filesystem สำหรับการจัดการไฟล์
+const authRoute = require('./routes/authRoute');            // นำเข้า authRoute สำหรับการจัดการเส้นทางการรับรองความถูกต้อง
+const calculateRoute = require('./routes/calculateRoute');  // นำเข้า calculateRoute สำหรับการจัดการเส้นทางการคำนวณ
+const cookieParser = require('cookie-parser'); // นำเข้าโมดูล cookie-parser สำหรับจัดการคุกกี้
+const session = require('express-session'); // นำเข้าโมดูล express-session สำหรับจัดการ session
 
 // สร้างแอปพลิเคชัน Express
 const app = express();
-// สร้างเซิร์ฟเวอร์ HTTP
-const server = http.createServer(app);
-// สร้างเซิร์ฟเวอร์ Socket.IO
-const io = socketIo(server);
+const server = http.createServer(app); // สร้างเซิร์ฟเวอร์ HTTP
+const io = socketIo(server); // สร้างเซิร์ฟเวอร์ Socket.IO
 
 // กำหนดค่า URL ของแอปพลิเคชันจาก environment variables หรือใช้ค่าเริ่มต้น
 const APP_URL = process.env.APP_URL || 'http://localhost:3000';
@@ -31,6 +32,26 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 // กำหนด middleware สำหรับการแปลงข้อมูล JSON
 app.use(express.json());
+// กำหนด middleware สำหรับการ parse คุกกี้
+app.use(cookieParser());
+// กำหนด middleware สำหรับการจัดการ session
+app.use(session({
+  secret: 'your_secret_key',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 } // กำหนดอายุคุกกี้เป็น 7 วัน
+}));
+
+// ฟังก์ชัน middleware สำหรับตรวจสอบการเข้าสู่ระบบ
+function checkAuthenticated(req, res, next) {
+  if (req.session.user) { // ถ้ามีข้อมูลผู้ใช้ใน session
+    return next(); // ดำเนินการต่อ
+  }
+  res.redirect('/'); // ถ้าไม่ได้เข้าสู่ระบบ เปลี่ยนเส้นทางไปที่หน้าแรก
+}
+
+// กำหนด middleware เพื่อป้องกันการเข้าถึง route สำหรับหน้าคำนวณ
+app.use('/calculate', checkAuthenticated, calculateRoute);
 
 // กำหนดเส้นทางสำหรับการเข้าสู่ระบบและการสมัครสมาชิก
 app.use('/', authRoute);
@@ -49,25 +70,20 @@ app.get('/register', (req, res) => {
 
 // กำหนดการเชื่อมต่อ Socket.IO
 io.on('connection', (socket) => {
-  console.log('New client connected');
+  console.log('New client connected'); // แสดงข้อความเมื่อมีการเชื่อมต่อใหม่จากไคลเอนต์
 
-  // ฟัง event 'calculate' จากไคลเอนต์
   socket.on('calculate', (data) => {
-    // คำนวณผลรวมของ input1 และ input2
     const result = Number(data.input1) + Number(data.input2);
-    // ส่งผลลัพธ์กลับไปที่ไคลเอนต์
     socket.emit('calculatedResult', { result });
   });
 
-  // ฟัง event 'disconnect' เมื่อไคลเอนต์ตัดการเชื่อมต่อ
   socket.on('disconnect', () => {
-    console.log('Client disconnected');
+    console.log('Client disconnected'); // แสดงข้อความเมื่อไคลเอนต์ตัดการเชื่อมต่อ
   });
 });
 
 // กำหนดพอร์ตที่เซิร์ฟเวอร์จะฟัง
 const PORT = process.env.PORT || 3000;
-// เริ่มเซิร์ฟเวอร์และฟังพอร์ตที่กำหนด
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

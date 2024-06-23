@@ -9,6 +9,8 @@ const authController = require('../controllers/authController');
 router.post('/login', authController.login);
 // กำหนดเส้นทาง POST สำหรับการสมัครสมาชิก และเรียกใช้ฟังก์ชัน register จาก authController
 router.post('/register', authController.register);
+// กำหนดเส้นทาง POST สำหรับการออกจากระบบ และเรียกใช้ฟังก์ชัน logout จาก authController
+router.post('/logout', authController.logout);
 
 // ส่งออกโมดูล router เพื่อให้สามารถใช้งานในไฟล์อื่นได้
 module.exports = router;
