@@ -10,5 +10,11 @@ const { checkAuthenticated } = require('../middleware/authMiddleware');
 // กำหนดเส้นทาง GET สำหรับการแสดงหน้าคำนวณ และเรียกใช้ฟังก์ชัน showCalculatePage จาก calculateController
 router.get('/calculate', checkAuthenticated, calculateController.showCalculatePage);
 
+// เส้นทางสำหรับดึงข้อมูล inputs จากฐานข้อมูล
+router.get('/get-inputs', calculateController.getInputs);
+
+// เส้นทางสำหรับอัปเดตข้อมูล inputs ในฐานข้อมูล
+router.post('/update-inputs', calculateController.updateInputs);
+
 // ส่งออกโมดูล router เพื่อให้สามารถใช้งานในไฟล์อื่นได้
 module.exports = router;

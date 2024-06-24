@@ -1,4 +1,41 @@
+const db = require('../config/database');
+
 // ฟังก์ชัน showCalculatePage สำหรับแสดงหน้าคำนวณ
 exports.showCalculatePage = (req, res) => {
   res.render('calculate');  // เรนเดอร์ไฟล์เทมเพลต 'calculate.ejs'
+};
+
+// ฟังก์ชันสำหรับดึงข้อมูล inputs จากฐานข้อมูล
+exports.getInputs = (req, res) => {
+  const sql = 'SELECT inputs FROM calculationstest WHERE id = 1';
+  db.query(sql, (err, result) => {
+    if (err) throw err;  // ถ้ามีข้อผิดพลาด ให้แสดงข้อผิดพลาด
+    res.json(result[0]); // ส่งข้อมูล inputs กลับไปในรูปแบบ JSON
+  });
+};
+
+// ฟังก์ชันสำหรับอัปเดตข้อมูล inputs ในฐานข้อมูล
+exports.updateInputs = (req, res) => {
+  const inputs = req.body.inputs;  // ดึงข้อมูล inputs จาก request body
+  const sql = 'UPDATE calculationstest SET inputs = ? WHERE id = 1';  // คำสั่ง SQL สำหรับอัปเดตข้อมูล
+  db.query(sql, [JSON.stringify(inputs)], (err, result) => {
+    if (err) throw err;  // ถ้ามีข้อผิดพลาด ให้แสดงข้อผิดพลาด
+    res.json({ success: true });  // ส่งข้อมูลตอบกลับว่าอัปเดตสำเร็จ
+  });
+};
+
+// ฟังก์ชันสำหรับการเชื่อมต่อ Socket.IO
+exports.handleSocketConnection = (io) => {
+  io.on('connection', (socket) => {
+    console.log('New client connected'); // แสดงข้อความเมื่อมีการเชื่อมต่อใหม่จากไคลเอนต์
+
+    socket.on('calculate', (data) => {
+      const result = Number(data.input1) + Number(data.input2);
+      socket.emit('calculatedResult', { result });
+    });
+
+    socket.on('disconnect', () => {
+      console.log('Client disconnected'); // แสดงข้อความเมื่อไคลเอนต์ตัดการเชื่อมต่อ
+    });
+  });
 };

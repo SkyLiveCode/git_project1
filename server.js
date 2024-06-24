@@ -14,6 +14,7 @@ const calculateRoute = require('./routes/calculateRoute');  // นำเข้�
 const cookieParser = require('cookie-parser'); // นำเข้าโมดูล cookie-parser สำหรับจัดการคุกกี้
 const session = require('express-session'); // นำเข้าโมดูล express-session สำหรับจัดการ session
 const { checkAuthenticated } = require('./middleware/authMiddleware'); // นำเข้าโมดูล middleware
+const calculateController = require('./controllers/calculateController'); // นำเข้าโมดูล calculateController
 
 const app = express();                 // สร้างแอปพลิเคชัน Express
 const server = http.createServer(app); // สร้างเซิร์ฟเวอร์ HTTP
@@ -51,38 +52,8 @@ app.get('/', checkAuthenticated, (req, res) => {
   res.render('index'); // แสดงหน้า index.ejs (หน้าแรก)
 });
 
-// เส้นทางสำหรับดึงข้อมูล inputs จากฐานข้อมูล
-app.get('/get-inputs', (req, res) => {
-  const sql = 'SELECT inputs FROM calculationstest WHERE id = 1';
-  db.query(sql, (err, result) => {
-    if (err) throw err;  // ถ้ามีข้อผิดพลาด ให้แสดงข้อผิดพลาด
-    res.json(result[0]); // ส่งข้อมูล inputs กลับไปในรูปแบบ JSON
-  });
-});
-
-// เส้นทางสำหรับอัปเดตข้อมูล inputs ในฐานข้อมูล
-app.post('/update-inputs', (req, res) => {
-  const inputs = req.body.inputs;  // ดึงข้อมูล inputs จาก request body
-  const sql = 'UPDATE calculationstest SET inputs = ? WHERE id = 1';  // คำสั่ง SQL สำหรับอัปเดตข้อมูล
-  db.query(sql, [JSON.stringify(inputs)], (err, result) => {
-    if (err) throw err;  // ถ้ามีข้อผิดพลาด ให้แสดงข้อผิดพลาด
-    res.json({ success: true });  // ส่งข้อมูลตอบกลับว่าอัปเดตสำเร็จ
-  });
-});
-
 // กำหนดการเชื่อมต่อ Socket.IO
-io.on('connection', (socket) => {
-  console.log('New client connected'); // แสดงข้อความเมื่อมีการเชื่อมต่อใหม่จากไคลเอนต์
-
-  socket.on('calculate', (data) => {
-    const result = Number(data.input1) + Number(data.input2);
-    socket.emit('calculatedResult', { result });
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Client disconnected'); // แสดงข้อความเมื่อไคลเอนต์ตัดการเชื่อมต่อ
-  });
-});
+calculateController.handleSocketConnection(io);
 
 // กำหนดพอร์ตที่เซิร์ฟเวอร์จะฟัง
 const PORT = process.env.PORT || 3000;
