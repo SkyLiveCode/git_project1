@@ -42,18 +42,13 @@ app.use(session({
   cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 } // กำหนดอายุคุกกี้เป็น 7 วัน
 }));
 
-// กำหนด middleware เพื่อป้องกันการเข้าถึง route สำหรับหน้าคำนวณ
-app.use('/calculate', checkAuthenticated, calculateRoute);
-
 // กำหนด Route
 // กำหนดเส้นทางสำหรับการเข้าสู่ระบบและการสมัครสมาชิก
 app.use('/', authRoute);
-// กำหนดเส้นทางสำหรับหน้าคำนวณ
-app.use('/', calculateRoute);
 
-// กำหนดเส้นทางสำหรับหน้าแรก
-app.get('/', (req, res) => {
-  res.render('index'); // แสดงหน้า index.ejs (หน้า login)
+// กำหนดเส้นทางสำหรับหน้าเข้าสู่ระบบ
+app.get('/login', (req, res) => {
+  res.render('login'); // แสดงหน้า login.ejs (หน้า login)
 });
 
 // กำหนดเส้นทางสำหรับหน้าสมัครสมาชิก
@@ -61,10 +56,16 @@ app.get('/register', (req, res) => {
   res.render('register'); // แสดงหน้า register.ejs (หน้า register)
 });
 
-// กำหนดเส้นทางสำหรับหน้าเข้าสู่ระบบ
-app.get('/login', (req, res) => {
-  res.render('login'); // แสดงหน้า index.ejs (หน้า login)
+// กำหนดเส้นทางและ middleware เพื่อป้องกันการเข้าถึงสำหรับหน้าแรก
+app.get('/', checkAuthenticated, (req, res) => {
+  res.render('index'); // แสดงหน้า index.ejs (หน้าแรก)
 });
+
+// กำหนดเส้นทางและ middleware เพื่อป้องกันการเข้าถึงสำหรับหน้าคำนวณ
+app.get('/calculate', checkAuthenticated, (req, res) => {
+  res.render('calculate'); // แสดงหน้า calculate.ejs (หน้า calculate)
+});
+
 
 // เส้นทางสำหรับดึงข้อมูล inputs จากฐานข้อมูล
 app.get('/get-inputs', (req, res) => {
