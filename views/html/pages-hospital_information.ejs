@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Information</title>
+    <link rel="stylesheet" href="/path/to/your/css/file.css">
+</head>
+<body>
+    <h1>ข้อมูลโรงพยาบาล</h1>
+    <!-- ฟอร์มสำหรับเพิ่มโรงพยาบาล -->
+    <form action="/addHospital" method="post">
+        <label for="hospital_name">ชื่อโรงพยาบาล:</label>
+        <input type="text" id="hospital_name" name="hospital_name" required>
+        <label for="province">จังหวัด:</label>
+        <input type="text" id="province" name="province" required>
+        <button type="submit">เพิ่มโรงพยาบาล</button>
+    </form>
+    <hr>
+    <!-- ตารางแสดงข้อมูลโรงพยาบาล -->
+    <table>
+        <thead>
+            <tr>
+                <th>รหัส</th>
+                <th>ชื่อโรงพยาบาล</th>
+                <th>จังหวัด</th>
+                <th>อุปกรณ์ทางการแพทย์</th>
+                <th>ลบ</th>
+                <th>แก้ไข</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% hospitals.forEach(hospital => { %>
+            <tr>
+                <!-- ฟอร์มสำหรับแก้ไขข้อมูลโรงพยาบาล -->
+                <form action="/updateHospital" method="post" class="edit-form">
+                    <td><%= hospital.id %></td>                    
+                    <td class="hospital-name">
+                        <span><%= hospital.hospital_name %></span>
+                        <input type="text" name="hospital_name" value="<%= hospital.hospital_name %>" style="display:none;">
+                    </td>                    
+                    <td class="hospital-province">
+                        <span><%= hospital.province %></span>
+                        <input type="text" name="province" value="<%= hospital.province %>" style="display:none;">
+                    </td>                    
+                    <td>
+                        <a href="/pages-medical_equipment?id=<%= hospital.id %>">ดูอุปกรณ์ทางการแพทย์</a>
+                    </td>                    
+                    <td>
+                        <button type="button" class="delete-btn" data-action="/deleteHospital" data-method="post">ลบ</button>
+                    </td>
+                    <td>
+                        <button type="button" class="edit-btn">แก้ไข</button>
+                        <button type="submit" class="confirm-edit-btn" style="display:none;">ยืนยัน</button>
+                    </td>
+                    <input type="hidden" name="id" value="<%= hospital.id %>">
+                </form>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <script>
+        // การทำงานของปุ่มแก้ไข
+        document.querySelectorAll('.edit-btn').forEach(button => { // เลือกปุ่มทั้งหมดที่มีคลาส `edit-btn` และวนซ้ำเพื่อเพิ่ม event listener ให้แต่ละปุ่ม
+            button.addEventListener('click', () => { // เพิ่ม event listener เมื่อมีการคลิกปุ่ม
+                const row = button.closest('tr'); // หารูปแบบแถว (tr) ที่ใกล้ที่สุดจากปุ่มที่คลิก
+                const nameSpan = row.querySelector('.hospital-name span'); // หาข้อความแสดงชื่อโรงพยาบาลในแถว
+                const nameInput = row.querySelector('.hospital-name input'); // หาช่อง input สำหรับชื่อโรงพยาบาลในแถว
+                const provinceSpan = row.querySelector('.hospital-province span'); // หาข้อความแสดงจังหวัดในแถว
+                const provinceInput = row.querySelector('.hospital-province input'); // หาช่อง input สำหรับจังหวัดในแถว
+                const editForm = row.querySelector('.edit-form'); // หาฟอร์มแก้ไขในแถว
+                const confirmEditBtn = row.querySelector('.confirm-edit-btn'); // หาปุ่มยืนยันการแก้ไข
+    
+                // การเปลี่ยนการแสดงผล
+                nameSpan.style.display = 'none'; // ซ่อนข้อความชื่อโรงพยาบาล
+                nameInput.style.display = 'block'; // แสดงช่อง input ชื่อโรงพยาบาล
+                provinceSpan.style.display = 'none'; // ซ่อนข้อความจังหวัด
+                provinceInput.style.display = 'block'; // แสดงช่อง input จังหวัด
+                confirmEditBtn.style.display = 'inline'; // แสดงปุ่มยืนยันการแก้ไข
+                button.style.display = 'none'; // ซ่อนปุ่มแก้ไข
+            });
+        });
+    
+        // การทำงานของปุ่มลบ
+        document.querySelectorAll('.delete-btn').forEach(button => { // เลือกปุ่มทั้งหมดที่มีคลาส `delete-btn` และวนซ้ำเพื่อเพิ่ม event listener ให้แต่ละปุ่ม
+            button.addEventListener('click', () => { // เพิ่ม event listener เมื่อมีการคลิกปุ่ม
+                const row = button.closest('tr'); // หารูปแบบแถว (tr) ที่ใกล้ที่สุดจากปุ่มที่คลิก
+                const form = document.createElement('form'); // สร้างฟอร์มใหม่
+                form.action = button.getAttribute('data-action'); // ตั้งค่า action ของฟอร์ม
+                form.method = button.getAttribute('data-method'); // ตั้งค่า method ของฟอร์ม
+                const idInput = document.createElement('input'); // สร้างช่อง input ซ่อนสำหรับ id
+                idInput.type = 'hidden'; // ตั้งค่า type เป็น hidden
+                idInput.name = 'id'; // ตั้งค่า name เป็น id
+                idInput.value = row.querySelector('input[name="id"]').value; // ตั้งค่า value เป็น id ของโรงพยาบาล
+                form.appendChild(idInput); // เพิ่มช่อง input id ลงในฟอร์ม
+                document.body.appendChild(form); // เพิ่มฟอร์มลงในเอกสาร
+                form.submit(); // ส่งฟอร์ม
+            });
+        });
+    </script>    
+</body>
+</html>

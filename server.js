@@ -15,6 +15,7 @@ const cookieParser = require('cookie-parser'); // นำเข้าโมดู
 const session = require('express-session'); // นำเข้าโมดูล express-session สำหรับจัดการ session
 const { checkAuthenticated } = require('./middleware/authMiddleware'); // นำเข้าโมดูล middleware
 const calculateController = require('./controllers/calculateController'); // นำเข้าโมดูล calculateController
+const hospitalRoutes = require('./routes/hospitalRoutes'); // นำเข้าโมดูล hospitalRoutes
 
 const app = express();                 // สร้างแอปพลิเคชัน Express
 const server = http.createServer(app); // สร้างเซิร์ฟเวอร์ HTTP
@@ -46,6 +47,7 @@ app.use(session({
 // กำหนด Route
 app.use('/', authRoute);
 app.use('/', calculateRoute);
+app.use('/', hospitalRoutes);
 
 // กำหนดเส้นทางและ middleware เพื่อป้องกันการเข้าถึงสำหรับหน้าแรก
 app.get('/', checkAuthenticated, (req, res) => {
