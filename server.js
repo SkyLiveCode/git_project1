@@ -60,6 +60,25 @@ app.get('/register', (req, res) => {
   res.render('register');
 });
 
+// เส้นทางสำหรับดึงข้อมูล inputs จากฐานข้อมูล
+app.get('/get-inputs', (req, res) => {
+  const sql = 'SELECT inputs FROM calculationstest WHERE id = 1';
+  db.query(sql, (err, result) => {
+    if (err) throw err;  // ถ้ามีข้อผิดพลาด ให้แสดงข้อผิดพลาด
+    res.json(result[0]); // ส่งข้อมูล inputs กลับไปในรูปแบบ JSON
+  });
+});
+
+// เส้นทางสำหรับอัปเดตข้อมูล inputs ในฐานข้อมูล
+app.post('/update-inputs', (req, res) => {
+  const inputs = req.body.inputs;  // ดึงข้อมูล inputs จาก request body
+  const sql = 'UPDATE calculationstest SET inputs = ? WHERE id = 1';  // คำสั่ง SQL สำหรับอัปเดตข้อมูล
+  db.query(sql, [JSON.stringify(inputs)], (err, result) => {
+    if (err) throw err;  // ถ้ามีข้อผิดพลาด ให้แสดงข้อผิดพลาด
+    res.json({ success: true });  // ส่งข้อมูลตอบกลับว่าอัปเดตสำเร็จ
+  });
+});
+
 // กำหนดการเชื่อมต่อ Socket.IO
 io.on('connection', (socket) => {
   console.log('New client connected'); // แสดงข้อความเมื่อมีการเชื่อมต่อใหม่จากไคลเอนต์
