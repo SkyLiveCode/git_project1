@@ -43,29 +43,13 @@ app.use(session({
 }));
 
 // กำหนด Route
-// กำหนดเส้นทางสำหรับการเข้าสู่ระบบและการสมัครสมาชิก
 app.use('/', authRoute);
-
-// กำหนดเส้นทางสำหรับหน้าเข้าสู่ระบบ
-app.get('/login', (req, res) => {
-  res.render('login'); // แสดงหน้า login.ejs (หน้า login)
-});
-
-// กำหนดเส้นทางสำหรับหน้าสมัครสมาชิก
-app.get('/register', (req, res) => {
-  res.render('register'); // แสดงหน้า register.ejs (หน้า register)
-});
+app.use('/', calculateRoute);
 
 // กำหนดเส้นทางและ middleware เพื่อป้องกันการเข้าถึงสำหรับหน้าแรก
 app.get('/', checkAuthenticated, (req, res) => {
   res.render('index'); // แสดงหน้า index.ejs (หน้าแรก)
 });
-
-// กำหนดเส้นทางและ middleware เพื่อป้องกันการเข้าถึงสำหรับหน้าคำนวณ
-app.get('/calculate', checkAuthenticated, (req, res) => {
-  res.render('calculate'); // แสดงหน้า calculate.ejs (หน้า calculate)
-});
-
 
 // เส้นทางสำหรับดึงข้อมูล inputs จากฐานข้อมูล
 app.get('/get-inputs', (req, res) => {
