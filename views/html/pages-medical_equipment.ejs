@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Equipment Information</title>
+    <link rel="stylesheet" href="/path/to/your/css/file.css">
+</head>
+<body>
+    <h1>ข้อมูลอุปกรณ์ทางการแพทย์</h1>
+    <!-- ฟอร์มสำหรับเพิ่มอุปกรณ์ทางการแพทย์ -->
+    <form action="/addMedicalEquipment" method="post">
+        <label for="equipment">ชื่ออุปกรณ์:</label>
+        <input type="text" id="equipment" name="equipment" required>
+        <label for="id_no">ID. No.:</label>
+        <input type="text" id="id_no" name="id_no" required>
+        <button type="submit">เพิ่มอุปกรณ์</button>
+    </form>
+    <hr>
+    <!-- ตารางแสดงข้อมูลอุปกรณ์ทางการแพทย์ -->
+    <table>
+        <thead>
+            <tr>
+                <th>รหัส</th>
+                <th>ชื่ออุปกรณ์</th>
+                <th>ID. No.</th>
+                <th>ลบ</th>
+                <th>แก้ไข</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% medicalEquipments.forEach(equipment => { %>
+            <tr>
+                <!-- ฟอร์มสำหรับแก้ไขข้อมูลอุปกรณ์ทางการแพทย์ -->
+                <form action="/updateMedicalEquipment" method="post" class="edit-form">
+                    <td><%= equipment.id %></td>                    
+                    <td class="equipment-name">
+                        <span><%= equipment.equipment %></span>
+                        <input type="text" name="equipment" value="<%= equipment.equipment %>" style="display:none;">
+                    </td>                    
+                    <td class="equipment-id_no">
+                        <span><%= equipment.id_no %></span>
+                        <input type="text" name="id_no" value="<%= equipment.id_no %>" style="display:none;">
+                    </td>                    
+                    <td>
+                        <button type="button" class="delete-btn" data-action="/deleteMedicalEquipment" data-method="post">ลบ</button>
+                    </td>
+                    <td>
+                        <button type="button" class="edit-btn">แก้ไข</button>
+                        <button type="submit" class="confirm-edit-btn" style="display:none;">ยืนยัน</button>
+                    </td>
+                    <input type="hidden" name="id" value="<%= equipment.id %>">
+                </form>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <script>
+        // การทำงานของปุ่มแก้ไข
+        document.querySelectorAll('.edit-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const row = button.closest('tr');
+                const nameSpan = row.querySelector('.equipment-name span');
+                const nameInput = row.querySelector('.equipment-name input');
+                const idNoSpan = row.querySelector('.equipment-id_no span');
+                const idNoInput = row.querySelector('.equipment-id_no input');
+                const confirmEditBtn = row.querySelector('.confirm-edit-btn');
+                nameSpan.style.display = 'none';
+                nameInput.style.display = 'block';
+                idNoSpan.style.display = 'none';
+                idNoInput.style.display = 'block';
+                confirmEditBtn.style.display = 'inline';
+                button.style.display = 'none';
+            });
+        });
+
+        // การทำงานของปุ่มลบ
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const row = button.closest('tr');
+                const form = document.createElement('form');
+                form.action = button.getAttribute('data-action');
+                form.method = button.getAttribute('data-method');
+                const idInput = document.createElement('input');
+                idInput.type = 'hidden';
+                idInput.name = 'id';
+                idInput.value = row.querySelector('input[name="id"]').value;
+                form.appendChild(idInput);
+                document.body.appendChild(form);
+                form.submit();
+            });
+        });
+    </script>    
+</body>
+</html>

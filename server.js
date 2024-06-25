@@ -9,13 +9,14 @@ const db = require('./config/database');  // นำเข้าโมดูล�
 const QRCode = require('qrcode');                 // นำเข้าโมดูล qrcode สำหรับสร้าง QR code
 const { PDFDocument, rgb } = require('pdf-lib');  // นำเข้าโมดูล PDF generation สำหรับสร้าง PDF
 const fs = require('fs');                         // นำเข้าโมดูล filesystem สำหรับการจัดการไฟล์
-const authRoute = require('./routes/authRoute');            // นำเข้า authRoute สำหรับการจัดการเส้นทางการรับรองความถูกต้อง
-const calculateRoute = require('./routes/calculateRoute');  // นำเข้า calculateRoute สำหรับการจัดการเส้นทางการคำนวณ
 const cookieParser = require('cookie-parser'); // นำเข้าโมดูล cookie-parser สำหรับจัดการคุกกี้
 const session = require('express-session'); // นำเข้าโมดูล express-session สำหรับจัดการ session
 const { checkAuthenticated } = require('./middleware/authMiddleware'); // นำเข้าโมดูล middleware
 const calculateController = require('./controllers/calculateController'); // นำเข้าโมดูล calculateController
+const authRoute = require('./routes/authRoute');            // นำเข้า authRoute สำหรับการจัดการเส้นทางการรับรองความถูกต้อง
+const calculateRoute = require('./routes/calculateRoute');  // นำเข้า calculateRoute สำหรับการจัดการเส้นทางการคำนวณ
 const hospitalRoutes = require('./routes/hospitalRoutes'); // นำเข้าโมดูล hospitalRoutes
+const medicalEquipmentRoutes = require('./routes/medicalEquipmentRoutes'); // นำเข้าโมดูล medicalEquipmentRoutes
 
 const app = express();                 // สร้างแอปพลิเคชัน Express
 const server = http.createServer(app); // สร้างเซิร์ฟเวอร์ HTTP
@@ -48,6 +49,7 @@ app.use(session({
 app.use('/', authRoute);
 app.use('/', calculateRoute);
 app.use('/', hospitalRoutes);
+app.use('/', medicalEquipmentRoutes);
 
 // กำหนดเส้นทางและ middleware เพื่อป้องกันการเข้าถึงสำหรับหน้าแรก
 app.get('/', checkAuthenticated, (req, res) => {

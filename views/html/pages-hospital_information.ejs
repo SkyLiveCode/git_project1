@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/path/to/your/css/file.css">
 </head>
 <body>
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
     <h1>ข้อมูลโรงพยาบาล</h1>
     <!-- ฟอร์มสำหรับเพิ่มโรงพยาบาล -->
     <form action="/addHospital" method="post">
@@ -44,7 +47,7 @@
                         <input type="text" name="province" value="<%= hospital.province %>" style="display:none;">
                     </td>                    
                     <td>
-                        <a href="/pages-medical_equipment?id=<%= hospital.id %>">ดูอุปกรณ์ทางการแพทย์</a>
+                        <a href="/html/pages-medical_equipment?id=<%= hospital.id %>">ดูอุปกรณ์ทางการแพทย์</a>
                     </td>                    
                     <td>
                         <button type="button" class="delete-btn" data-action="/deleteHospital" data-method="post">ลบ</button>
