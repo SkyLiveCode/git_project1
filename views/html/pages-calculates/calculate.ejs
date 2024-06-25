@@ -13,7 +13,8 @@
     <input type="text" id="input3" name="input3" placeholder="Input 3" />
     <input type="text" id="input4" name="input4" placeholder="Input 4" />
     <input type="text" id="signature" name="signature" placeholder="Signature" />
-    <button type="submit">Submit</button> <!-- ปุ่มสำหรับส่งฟอร์ม -->
+    <button type="button" id="fillSignature">Fill Signature</button> <!-- ปุ่มสำหรับกรอกชื่อสมหมาย -->
+    <button type="submit">Submit</button>
   </form>
   <h1>Sum Result: <span id="sumResult"></span></h1>
   <h1>Difference Result: <span id="differenceResult"></span></h1>
@@ -45,6 +46,28 @@
             });
           }
         });
+
+      document.getElementById('fillSignature').addEventListener('click', function() {
+        document.getElementById('signature').value = 'สมหมาย';
+
+        // ทำการคำนวณเมื่อกรอกข้อมูลลงในช่องลายเซ็นต์
+        const inputs = {
+          input1: document.getElementById('input1').value,
+          input2: document.getElementById('input2').value,
+          input3: document.getElementById('input3').value,
+          input4: document.getElementById('input4').value,
+          signature: document.getElementById('signature').value,
+        };
+
+        // ส่งข้อมูลไปที่เซิร์ฟเวอร์เพื่อทำการคำนวณ
+        const socket = io();
+        socket.emit('calculate', inputs);
+        socket.on('calculatedResult', (data) => {
+          document.getElementById('sumResult').textContent = data.sumResult;
+          document.getElementById('differenceResult').textContent = data.differenceResult;
+          document.getElementById('signatureStatus').textContent = data.signatureStatus;
+        });
+      });
     });
 
     document.getElementById('calcForm').addEventListener('submit', function(event) {
