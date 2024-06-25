@@ -15,7 +15,7 @@ exports.renderMedicalEquipmentInformation = async (req, res) => {
 exports.addMedicalEquipment = async (req, res) => {
     try {
         const { equipment, id_no } = req.body;
-        await db.query('INSERT INTO equipment (equipment, id_no) VALUES (?, ?)', [equipment, id_no]);
+        await db.query('INSERT INTO equipment (equipment, `ID. No.`) VALUES (?, ?)', [equipment, id_no]);
         res.redirect('/html/pages-medical_equipment');
     } catch (err) {
         console.error(err);
@@ -39,7 +39,7 @@ exports.deleteMedicalEquipment = async (req, res) => {
 exports.updateMedicalEquipment = async (req, res) => {
     try {
         const { id, equipment, id_no } = req.body;
-        await db.query('UPDATE equipment SET equipment = ?, id_no = ? WHERE id = ?', [equipment, id_no, id]);
+        await db.query('UPDATE equipment SET equipment = ?, `ID. No.` = ? WHERE id = ?', [equipment, id_no, id]);
         res.redirect('/html/pages-medical_equipment');
     } catch (err) {
         console.error(err);
