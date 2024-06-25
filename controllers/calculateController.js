@@ -2,7 +2,7 @@ const db = require('../config/database');
 
 // ฟังก์ชัน showCalculatePage สำหรับแสดงหน้าคำนวณ
 exports.showCalculatePage = (req, res) => {
-    res.render('calculate');  // เรนเดอร์ไฟล์เทมเพลต 'calculate.ejs'
+    res.render('html/pages-calculates/calculate');  // เรนเดอร์ไฟล์เทมเพลต 'calculate.ejs'
 };
 
 // ฟังก์ชันสำหรับดึงข้อมูล inputs จากฐานข้อมูล
