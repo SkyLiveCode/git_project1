@@ -36,8 +36,10 @@ exports.handleSocketConnection = (io) => {
         console.log('New client connected'); // แสดงข้อความเมื่อมีการเชื่อมต่อใหม่จากไคลเอนต์
 
         socket.on('calculate', (data) => {
-            const result = Number(data.input1) + Number(data.input2);
-            socket.emit('calculatedResult', { result });
+            const sumResult = Number(data.input1) + Number(data.input2);
+            const differenceResult = Number(data.input3) - Number(data.input4);
+            const signatureStatus = data.signature ? 'Signed' : 'Not Signed';
+            socket.emit('calculatedResult', { sumResult, differenceResult, signatureStatus });
         });
 
         socket.on('disconnect', () => {

@@ -8,11 +8,16 @@
 <body>
   <h1>Real-time Calculation</h1>
   <form id="calcForm">
-    <input type="number" id="input1" name="input1" placeholder="Input 1" />
-    <input type="number" id="input2" name="input2" placeholder="Input 2" />
+    <input type="text" id="input1" name="input1" placeholder="Input 1" />
+    <input type="text" id="input2" name="input2" placeholder="Input 2" />
+    <input type="text" id="input3" name="input3" placeholder="Input 3" />
+    <input type="text" id="input4" name="input4" placeholder="Input 4" />
+    <input type="text" id="signature" name="signature" placeholder="Signature" />
     <button type="submit">Submit</button> <!-- ปุ่มสำหรับส่งฟอร์ม -->
   </form>
-  <h1 id="result"></h1>
+  <h1>Sum Result: <span id="sumResult"></span></h1>
+  <h1>Difference Result: <span id="differenceResult"></span></h1>
+  <h1>Signature Status: <span id="signatureStatus"></span></h1>
   <form action="/logout" method="POST">
     <button type="submit">Logout</button>
   </form>
@@ -27,11 +32,16 @@
           if (data.inputs) {
             document.getElementById('input1').value = data.inputs.input1 || '';
             document.getElementById('input2').value = data.inputs.input2 || '';
+            document.getElementById('input3').value = data.inputs.input3 || '';
+            document.getElementById('input4').value = data.inputs.input4 || '';
+            document.getElementById('signature').value = data.inputs.signature || '';
             // ส่งข้อมูลไปที่เซิร์ฟเวอร์เพื่อทำการคำนวณ
             const socket = io();
-            socket.emit('calculate', { input1: data.inputs.input1, input2: data.inputs.input2 });
+            socket.emit('calculate', data.inputs);
             socket.on('calculatedResult', (data) => {
-              document.getElementById('result').textContent = data.result;
+              document.getElementById('sumResult').textContent = data.sumResult;
+              document.getElementById('differenceResult').textContent = data.differenceResult;
+              document.getElementById('signatureStatus').textContent = data.signatureStatus;
             });
           }
         });
@@ -39,9 +49,13 @@
 
     document.getElementById('calcForm').addEventListener('submit', function(event) {
       event.preventDefault();
-      const input1 = document.getElementById('input1').value;
-      const input2 = document.getElementById('input2').value;
-      const inputs = { input1: input1, input2: input2 };
+      const inputs = {
+        input1: document.getElementById('input1').value,
+        input2: document.getElementById('input2').value,
+        input3: document.getElementById('input3').value,
+        input4: document.getElementById('input4').value,
+        signature: document.getElementById('signature').value,
+      };
 
       fetch('/update-inputs', {
         method: 'POST',
@@ -55,9 +69,11 @@
             alert('Inputs updated successfully');
             // ส่งข้อมูลไปที่เซิร์ฟเวอร์เพื่อทำการคำนวณ
             const socket = io();
-            socket.emit('calculate', { input1: input1, input2: input2 });
+            socket.emit('calculate', inputs);
             socket.on('calculatedResult', (data) => {
-              document.getElementById('result').textContent = data.result;
+              document.getElementById('sumResult').textContent = data.sumResult;
+              document.getElementById('differenceResult').textContent = data.differenceResult;
+              document.getElementById('signatureStatus').textContent = data.signatureStatus;
             });
           }
         });
