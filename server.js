@@ -17,6 +17,7 @@ const authRoute = require('./routes/authRoute');            // นำเข้�
 const calculateRoute = require('./routes/calculateRoute');  // นำเข้า calculateRoute สำหรับการจัดการเส้นทางการคำนวณ
 const hospitalRoutes = require('./routes/hospitalRoutes'); // นำเข้าโมดูล hospitalRoutes
 const medicalEquipmentRoutes = require('./routes/medicalEquipmentRoutes'); // นำเข้าโมดูล medicalEquipmentRoutes
+const calRoute = require('./routes/calRoute');  // นำเข้า calculateRoute สำหรับการจัดการเส้นทางการคำนวณ
 
 const app = express();                 // สร้างแอปพลิเคชัน Express
 const server = http.createServer(app); // สร้างเซิร์ฟเวอร์ HTTP
@@ -47,6 +48,7 @@ app.use(session({
 
 // กำหนด Route
 app.use('/', authRoute);
+app.use('/', calRoute);
 app.use('/', calculateRoute);
 app.use('/', hospitalRoutes);
 app.use('/', medicalEquipmentRoutes);
