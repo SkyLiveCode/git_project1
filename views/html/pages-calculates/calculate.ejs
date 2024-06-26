@@ -123,18 +123,27 @@
 
     // ฟังก์ชันสำหรับกรอกข้อมูลลายเซ็นต์
     document.getElementById('fillSignature1').addEventListener('click', function() {
-      document.getElementById('signature1').value = 'สมหมาย';
-      sendInputs(getInputs());
+      const signature1Input = document.getElementById('signature1');
+      if (!signature1Input.value) {
+        signature1Input.value = 'สมหมาย';
+        sendInputs(getInputs());
+      }
     });
 
     document.getElementById('fillSignature2').addEventListener('click', function() {
-      document.getElementById('signature2').value = 'สมหมาย';
-      sendInputs(getInputs());
+      const signature2Input = document.getElementById('signature2');
+      if (!signature2Input.value) {
+        signature2Input.value = 'สมหมาย';
+        sendInputs(getInputs());
+      }
     });
 
     document.getElementById('fillSignature3').addEventListener('click', function() {
-      document.getElementById('signature3').value = 'สมหมาย';
-      sendInputs(getInputs());
+      const signature3Input = document.getElementById('signature3');
+      if (!signature3Input.value) {
+        signature3Input.value = 'สมหมาย';
+        sendInputs(getInputs());
+      }
     });
 
     // ฟังก์ชันสำหรับดึงข้อมูล inputs จากฟอร์ม
