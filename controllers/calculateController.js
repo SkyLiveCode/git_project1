@@ -41,7 +41,7 @@ exports.handleSocketConnection = (io) => {
             const signatureStatus1 = data.signature1 ? 'Signed' : 'Not Signed';
             const signatureStatus2 = data.signature2 ? 'Signed' : 'Not Signed';
             const signatureStatus3 = data.signature3 ? 'Signed' : 'Not Signed';
-            socket.emit('calculatedResult', { sumResult, differenceResult, signatureStatus1, signatureStatus2, signatureStatus3 });
+            socket.emit('calculatedResult', { sumResult, differenceResult, signatureStatus1, signatureStatus2, signatureStatus3, radio1: data.radio1, radio2: data.radio2 });
         });
 
         socket.on('disconnect', () => {

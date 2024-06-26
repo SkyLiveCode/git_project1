@@ -23,6 +23,16 @@
     <textarea id="textarea1" name="textarea1" placeholder="Textarea 1"></textarea><br>
     <textarea id="textarea2" name="textarea2" placeholder="Textarea 2"></textarea><br>
     
+    <!-- Radio buttons for Form1 -->
+    <input type="radio" name="radio1" value="option1" id="radio1Option1">Option 1
+    <input type="radio" name="radio1" value="option2" id="radio1Option2">Option 2
+    <input type="radio" name="radio1" value="option3" id="radio1Option3">Option 3<br>
+    
+    <!-- Radio buttons for Form2 -->
+    <input type="radio" name="radio2" value="option1" id="radio2Option1">Option 1
+    <input type="radio" name="radio2" value="option2" id="radio2Option2">Option 2
+    <input type="radio" name="radio2" value="option3" id="radio2Option3">Option 3<br>
+    
     <button type="submit">Submit</button>
   </form>
 
@@ -44,7 +54,13 @@
       function getInputs() {
         const inputs = {};
         document.querySelectorAll('#calcForm input, #calcForm textarea').forEach(input => {
-          inputs[input.name] = input.value;
+          if (input.type === 'radio') {
+            if (input.checked) {
+              inputs[input.name] = input.value;
+            }
+          } else {
+            inputs[input.name] = input.value;
+          }
         });
         return inputs;
       }
@@ -58,6 +74,14 @@
           document.getElementById('signatureStatus1').textContent = data.signatureStatus1;
           document.getElementById('signatureStatus2').textContent = data.signatureStatus2;
           document.getElementById('signatureStatus3').textContent = data.signatureStatus3;
+
+          // Setting radio buttons
+          document.getElementById('radio1Option1').checked = data.radio1 === 'option1';
+          document.getElementById('radio1Option2').checked = data.radio1 === 'option2';
+          document.getElementById('radio1Option3').checked = data.radio1 === 'option3';
+          document.getElementById('radio2Option1').checked = data.radio2 === 'option1';
+          document.getElementById('radio2Option2').checked = data.radio2 === 'option2';
+          document.getElementById('radio2Option3').checked = data.radio2 === 'option3';
         });
       }
 
@@ -70,6 +94,14 @@
                 document.getElementById(key).value = data.inputs[key] || '';
               }
             });
+
+            // Set radio buttons based on data
+            if (data.inputs.radio1) {
+              document.querySelector(`input[name="radio1"][value="${data.inputs.radio1}"]`).checked = true;
+            }
+            if (data.inputs.radio2) {
+              document.querySelector(`input[name="radio2"][value="${data.inputs.radio2}"]`).checked = true;
+            }
 
             sendInputs(data.inputs);
           }
