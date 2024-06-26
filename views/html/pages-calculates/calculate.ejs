@@ -7,6 +7,7 @@
 </head>
 <body>
   <h1>Real-time Calculation</h1>
+  
   <form id="calcForm">
     <input type="text" id="input1" name="input1" placeholder="Input 1" />
     <input type="text" id="input2" name="input2" placeholder="Input 2" /><br>
@@ -14,52 +15,36 @@
     <input type="text" id="input4" name="input4" placeholder="Input 4" /><br>
     <input type="text" id="signature" name="signature" placeholder="Signature" />
     <button type="button" id="fillSignature">Fill Signature</button><br>
+    
+    <button type="submit">Submit</button>
+    <button type="submit">Submit</button>
     <button type="submit">Submit</button>
   </form>
+
   <h1>Sum Result: <span id="sumResult"></span></h1>
   <h1>Difference Result: <span id="differenceResult"></span></h1>
   <h1>Signature Status: <span id="signatureStatus"></span></h1>
+  
   <form action="/logout" method="POST">
     <button type="submit">Logout</button>
   </form>
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="/assets/js/calculate.js"></script>
+
   <script>
     document.addEventListener('DOMContentLoaded', (event) => {
-      fetch('/get-inputs')
-        .then(response => response.json())
-        .then(data => {
-          if (data.inputs) {
-            document.getElementById('input1').value = data.inputs.input1 || '';
-            document.getElementById('input2').value = data.inputs.input2 || '';
-            document.getElementById('input3').value = data.inputs.input3 || '';
-            document.getElementById('input4').value = data.inputs.input4 || '';
-            document.getElementById('signature').value = data.inputs.signature || '';
-            // ส่งข้อมูลไปที่เซิร์ฟเวอร์เพื่อทำการคำนวณ
-            const socket = io();
-            socket.emit('calculate', data.inputs);
-            socket.on('calculatedResult', (data) => {
-              document.getElementById('sumResult').textContent = data.sumResult;
-              document.getElementById('differenceResult').textContent = data.differenceResult;
-              document.getElementById('signatureStatus').textContent = data.signatureStatus;
-            });
-          }
+      // ฟังก์ชันรวบรวมค่าป้อนข้อมูลจากฟอร์ม
+      function getInputs() {
+        const inputs = {};
+        document.querySelectorAll('#calcForm input').forEach(input => {
+          inputs[input.name] = input.value;
         });
+        return inputs;
+      }
 
-      document.getElementById('fillSignature').addEventListener('click', function() {
-        document.getElementById('signature').value = 'สมหมาย';
-
-        // ทำการคำนวณเมื่อกรอกข้อมูลลงในช่องลายเซ็นต์
-        const inputs = {
-          input1: document.getElementById('input1').value,
-          input2: document.getElementById('input2').value,
-          input3: document.getElementById('input3').value,
-          input4: document.getElementById('input4').value,
-          signature: document.getElementById('signature').value,
-        };
-
-        // ส่งข้อมูลไปที่เซิร์ฟเวอร์เพื่อทำการคำนวณ
+      // ฟังก์ชันส่งข้อมูลไปยังเซิร์ฟเวอร์
+      function sendInputs(inputs) {
         const socket = io();
         socket.emit('calculate', inputs);
         socket.on('calculatedResult', (data) => {
@@ -67,39 +52,45 @@
           document.getElementById('differenceResult').textContent = data.differenceResult;
           document.getElementById('signatureStatus').textContent = data.signatureStatus;
         });
-      });
-    });
+      }
 
-    document.getElementById('calcForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const inputs = {
-        input1: document.getElementById('input1').value,
-        input2: document.getElementById('input2').value,
-        input3: document.getElementById('input3').value,
-        input4: document.getElementById('input4').value,
-        signature: document.getElementById('signature').value,
-      };
-
-      fetch('/update-inputs', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ inputs: inputs }),
-      }).then(response => response.json())
+      fetch('/get-inputs')
+        .then(response => response.json())
         .then(data => {
-          if (data.success) {
-            alert('Inputs updated successfully');
-            // ส่งข้อมูลไปที่เซิร์ฟเวอร์เพื่อทำการคำนวณ
-            const socket = io();
-            socket.emit('calculate', inputs);
-            socket.on('calculatedResult', (data) => {
-              document.getElementById('sumResult').textContent = data.sumResult;
-              document.getElementById('differenceResult').textContent = data.differenceResult;
-              document.getElementById('signatureStatus').textContent = data.signatureStatus;
+          if (data.inputs) {
+            Object.keys(data.inputs).forEach(key => {
+              if (document.getElementById(key)) {
+                document.getElementById(key).value = data.inputs[key] || '';
+              }
             });
+
+            sendInputs(data.inputs);
           }
         });
+
+      document.getElementById('fillSignature').addEventListener('click', function() {
+        document.getElementById('signature').value = 'สมหมาย';
+        sendInputs(getInputs());
+      });
+
+      document.getElementById('calcForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const inputs = getInputs();
+
+        fetch('/update-inputs', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ inputs: inputs }),
+        }).then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert('Inputs updated successfully');
+              sendInputs(inputs);
+            }
+          });
+      });
     });
   </script>
 </body>
