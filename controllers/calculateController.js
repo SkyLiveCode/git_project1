@@ -36,12 +36,24 @@ exports.handleSocketConnection = (io) => {
         console.log('New client connected'); // แสดงข้อความเมื่อมีการเชื่อมต่อใหม่จากไคลเอนต์
 
         socket.on('calculate', (data) => {
-            const sumResult = Number(data.input1) + Number(data.input2);
-            const differenceResult = Number(data.input3) - Number(data.input4);
+            const sumResult = Number(data.calinput1) + Number(data.calinput2);
+            const differenceResult = Number(data.calinput3) - Number(data.calinput4);
             const signatureStatus1 = data.signature1 ? 'Signed' : 'Not Signed';
             const signatureStatus2 = data.signature2 ? 'Signed' : 'Not Signed';
             const signatureStatus3 = data.signature3 ? 'Signed' : 'Not Signed';
-            socket.emit('calculatedResult', { sumResult, differenceResult, signatureStatus1, signatureStatus2, signatureStatus3, radio1: data.radio1, radio2: data.radio2 });
+            socket.emit('calculatedResult', { 
+                sumResult, 
+                differenceResult, 
+                signatureStatus1, 
+                signatureStatus2, 
+                signatureStatus3,
+                radio1: data.radio1, 
+                radio2: data.radio2,
+                infoinput1: data.infoinput1,
+                infoinput2: data.infoinput2,
+                infoinput3: data.infoinput3,
+                infoinput4: data.infoinput4 
+            });
         });
 
         socket.on('disconnect', () => {

@@ -9,10 +9,15 @@
   <h1>Real-time Calculation</h1>
   
   <form id="calcForm">
-    <input type="text" id="input1" name="input1" placeholder="Input 1" />
-    <input type="text" id="input2" name="input2" placeholder="Input 2" /><br>
-    <input type="text" id="input3" name="input3" placeholder="Input 3" />
-    <input type="text" id="input4" name="input4" placeholder="Input 4" /><br>
+    <input type="text" id="calinput1" name="calinput1" placeholder="Calculation Input 1" />
+    <input type="text" id="calinput2" name="calinput2" placeholder="Calculation Input 2" /><br>
+    <input type="text" id="calinput3" name="calinput3" placeholder="Calculation Input 3" />
+    <input type="text" id="calinput4" name="calinput4" placeholder="Calculation Input 4" /><br>
+    <input type="text" id="infoinput1" name="infoinput1" placeholder="Info Input 1" />
+    <input type="text" id="infoinput2" name="infoinput2" placeholder="Info Input 2" /><br>
+    <input type="text" id="infoinput3" name="infoinput3" placeholder="Info Input 3" />
+    <input type="text" id="infoinput4" name="infoinput4" placeholder="Info Input 4" /><br>
+    
     <input type="text" id="signature1" name="signature1" placeholder="Signature 1" />
     <button type="button" id="fillSignature1">Fill Signature 1</button><br>
     <input type="text" id="signature2" name="signature2" placeholder="Signature 2" />
@@ -82,6 +87,10 @@
           document.getElementById('radio2Option1').checked = data.radio2 === 'option1';
           document.getElementById('radio2Option2').checked = data.radio2 === 'option2';
           document.getElementById('radio2Option3').checked = data.radio2 === 'option3';
+          document.getElementById('infoinput1').value = data.infoinput1 || '';
+          document.getElementById('infoinput2').value = data.infoinput2 || '';
+          document.getElementById('infoinput3').value = data.infoinput3 || '';
+          document.getElementById('infoinput4').value = data.infoinput4 || '';
         });
       }
 

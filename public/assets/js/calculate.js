@@ -3,10 +3,10 @@ const socket = io();
 
 // ฟังก์ชันสำหรับการคำนวณ
 function calculate() {
-  const input1 = document.getElementById('input1').value;
-  const input2 = document.getElementById('input2').value;
-  const input3 = document.getElementById('input3').value;
-  const input4 = document.getElementById('input4').value;
+  const calinput1 = document.getElementById('calinput1').value;
+  const calinput2 = document.getElementById('calinput2').value;
+  const calinput3 = document.getElementById('calinput3').value;
+  const calinput4 = document.getElementById('calinput4').value;
   const signature1 = document.getElementById('signature1').value;
   const signature2 = document.getElementById('signature2').value;
   const signature3 = document.getElementById('signature3').value;
@@ -14,8 +14,12 @@ function calculate() {
   const textarea2 = document.getElementById('textarea2').value;
   const radio1 = document.querySelector('input[name="radio1"]:checked') ? document.querySelector('input[name="radio1"]:checked').value : '';
   const radio2 = document.querySelector('input[name="radio2"]:checked') ? document.querySelector('input[name="radio2"]:checked').value : '';
+  const infoinput1 = document.getElementById('infoinput1').value;
+  const infoinput2 = document.getElementById('infoinput2').value;
+  const infoinput3 = document.getElementById('infoinput3').value;
+  const infoinput4 = document.getElementById('infoinput4').value;
 
-  socket.emit('calculate', { input1, input2, input3, input4, signature1, signature2, signature3, textarea1, textarea2, radio1, radio2 });
+  socket.emit('calculate', { calinput1, calinput2, calinput3, calinput4, signature1, signature2, signature3, textarea1, textarea2, radio1, radio2, infoinput1, infoinput2, infoinput3, infoinput4 });
 }
 
 // เพิ่ม event listener สำหรับฟอร์มคำนวณ เพื่อฟังการเปลี่ยนแปลงของ input
@@ -36,6 +40,10 @@ socket.on('calculatedResult', (data) => {
   document.getElementById('radio2Option1').checked = data.radio2 === 'option1';
   document.getElementById('radio2Option2').checked = data.radio2 === 'option2';
   document.getElementById('radio2Option3').checked = data.radio2 === 'option3';
+  document.getElementById('infoinput1').value = data.infoinput1 || '';
+  document.getElementById('infoinput2').value = data.infoinput2 || '';
+  document.getElementById('infoinput3').value = data.infoinput3 || '';
+  document.getElementById('infoinput4').value = data.infoinput4 || '';
 });
 
 // เรียกฟังก์ชันคำนวณเมื่อหน้าเว็บโหลดเสร็จ
