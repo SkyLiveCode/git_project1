@@ -46,7 +46,10 @@
   <h1>Signature 1 Status: <span id="signatureStatus1"></span></h1>
   <h1>Signature 2 Status: <span id="signatureStatus2"></span></h1>
   <h1>Signature 3 Status: <span id="signatureStatus3"></span></h1>
-  
+
+  <!-- Image to be shown conditionally -->
+  <img id="signatureImage" src="path_to_your_image.jpg" style="display:none;" />
+
   <form action="/logout" method="POST">
     <button type="submit">Logout</button>
   </form>
@@ -79,6 +82,14 @@
           document.getElementById('signatureStatus1').textContent = data.signatureStatus1;
           document.getElementById('signatureStatus2').textContent = data.signatureStatus2;
           document.getElementById('signatureStatus3').textContent = data.signatureStatus3;
+
+          // Show/Hide the image based on signature3
+          const signature3 = document.getElementById('signature3').value;
+          if (signature3.toLowerCase() === 'sky') {
+            document.getElementById('signatureImage').style.display = 'block';
+          } else {
+            document.getElementById('signatureImage').style.display = 'none';
+          }
 
           // Setting radio buttons
           document.getElementById('radio1Option1').checked = data.radio1 === 'option1';
@@ -148,6 +159,16 @@
               sendInputs(inputs);
             }
           });
+      });
+
+      // Add real-time checking for signature3
+      document.getElementById('signature3').addEventListener('input', function() {
+        const signature3 = document.getElementById('signature3').value;
+        if (signature3.toLowerCase() === 'sky') {
+          document.getElementById('signatureImage').style.display = 'block';
+        } else {
+          document.getElementById('signatureImage').style.display = 'none';
+        }
       });
     });
   </script>
