@@ -1,8 +1,33 @@
 const db = require('../config/database');
 
-// ฟังก์ชัน showCalculatePage สำหรับแสดงหน้าคำนวณ
+// ฟังก์ชันแสดงหน้าคำนวณ
 exports.showCalculatePage = (req, res) => {
     res.render('html/pages-calculates/calculate');  // เรนเดอร์ไฟล์เทมเพลต 'calculate.ejs'
+};
+
+// ฟังก์ชันคำนวณและส่งผลลัพธ์กลับ
+exports.calculate = (req, res) => {
+    const { calinput1, calinput2, calinput3, calinput4, signature1, signature2, signature3, textarea1, textarea2, radio1, radio2, infoinput1, infoinput2, infoinput3, infoinput4 } = req.body;
+
+    const sumResult = Number(calinput1) + Number(calinput2);
+    const differenceResult = Number(calinput3) - Number(calinput4);
+    const signatureStatus1 = signature1 ? 'Signed' : 'Not Signed';
+    const signatureStatus2 = signature2 ? 'Signed' : 'Not Signed';
+    const signatureStatus3 = signature3 ? 'Signed' : 'Not Signed';
+
+    res.json({
+        sumResult,
+        differenceResult,
+        signatureStatus1,
+        signatureStatus2,
+        signatureStatus3,
+        radio1,
+        radio2,
+        infoinput1,
+        infoinput2,
+        infoinput3,
+        infoinput4
+    });
 };
 
 // ฟังก์ชันสำหรับดึงข้อมูล inputs จากฐานข้อมูล
