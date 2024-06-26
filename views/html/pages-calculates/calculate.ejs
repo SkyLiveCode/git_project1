@@ -9,31 +9,39 @@
   <h1>Real-time Calculation</h1>
   
   <form id="calcForm">
+    <!-- ช่องใส่ข้อมูลการคำนวณ 1 และ 2 -->
     <input type="text" id="calinput1" name="calinput1" placeholder="Calculation Input 1" />
     <input type="text" id="calinput2" name="calinput2" placeholder="Calculation Input 2" /><br>
+    <!-- ช่องใส่ข้อมูลการคำนวณ 3 และ 4 -->
     <input type="text" id="calinput3" name="calinput3" placeholder="Calculation Input 3" />
     <input type="text" id="calinput4" name="calinput4" placeholder="Calculation Input 4" /><br>
+    <!-- ช่องใส่ข้อมูลเพิ่มเติม 1 และ 2 -->
     <input type="text" id="infoinput1" name="infoinput1" placeholder="Info Input 1" />
     <input type="text" id="infoinput2" name="infoinput2" placeholder="Info Input 2" /><br>
+    <!-- ช่องใส่ข้อมูลเพิ่มเติม 3 และ 4 -->
     <input type="text" id="infoinput3" name="infoinput3" placeholder="Info Input 3" />
     <input type="text" id="infoinput4" name="infoinput4" placeholder="Info Input 4" /><br>
     
+    <!-- ช่องใส่ลายเซ็นต์ 1 และปุ่มกรอกลายเซ็นต์ -->
     <input type="text" id="signature1" name="signature1" placeholder="Signature 1" />
     <button type="button" id="fillSignature1">Fill Signature 1</button><br>
+    <!-- ช่องใส่ลายเซ็นต์ 2 และปุ่มกรอกลายเซ็นต์ -->
     <input type="text" id="signature2" name="signature2" placeholder="Signature 2" />
     <button type="button" id="fillSignature2">Fill Signature 2</button><br>
+    <!-- ช่องใส่ลายเซ็นต์ 3 และปุ่มกรอกลายเซ็นต์ -->
     <input type="text" id="signature3" name="signature3" placeholder="Signature 3" />
     <button type="button" id="fillSignature3">Fill Signature 3</button><br>
     
+    <!-- ช่องใส่ข้อความ 1 และ 2 -->
     <textarea id="textarea1" name="textarea1" placeholder="Textarea 1"></textarea><br>
     <textarea id="textarea2" name="textarea2" placeholder="Textarea 2"></textarea><br>
     
-    <!-- Radio buttons for Form1 -->
+    <!-- ปุ่มเลือกแบบตัวเลือกสำหรับ Form1 -->
     <input type="radio" name="radio1" value="option1" id="radio1Option1">Option 1
     <input type="radio" name="radio1" value="option2" id="radio1Option2">Option 2
     <input type="radio" name="radio1" value="option3" id="radio1Option3">Option 3<br>
     
-    <!-- Radio buttons for Form2 -->
+    <!-- ปุ่มเลือกแบบตัวเลือกสำหรับ Form2 -->
     <input type="radio" name="radio2" value="option1" id="radio2Option1">Option 1
     <input type="radio" name="radio2" value="option2" id="radio2Option2">Option 2
     <input type="radio" name="radio2" value="option3" id="radio2Option3">Option 3<br>
@@ -47,7 +55,7 @@
   <h1>Signature 2 Status: <span id="signatureStatus2"></span></h1>
   <h1>Signature 3 Status: <span id="signatureStatus3"></span></h1>
 
-  <!-- Image to be shown conditionally -->
+  <!-- รูปภาพที่จะถูกแสดงตามเงื่อนไข -->
   <img id="signatureImage" src="path_to_your_image.jpg" style="display:none;" />
 
   <form action="/logout" method="POST">
@@ -83,7 +91,7 @@
           document.getElementById('signatureStatus2').textContent = data.signatureStatus2;
           document.getElementById('signatureStatus3').textContent = data.signatureStatus3;
 
-          // Show/Hide the image based on signature3
+          // แสดง/ซ่อนรูปภาพตามลายเซ็นต์ 3
           const signature3 = document.getElementById('signature3').value;
           if (signature3.toLowerCase() === 'sky') {
             document.getElementById('signatureImage').style.display = 'block';
@@ -91,7 +99,7 @@
             document.getElementById('signatureImage').style.display = 'none';
           }
 
-          // Setting radio buttons
+          // ตั้งค่าปุ่มเลือกแบบตัวเลือก
           document.getElementById('radio1Option1').checked = data.radio1 === 'option1';
           document.getElementById('radio1Option2').checked = data.radio1 === 'option2';
           document.getElementById('radio1Option3').checked = data.radio1 === 'option3';
@@ -115,7 +123,7 @@
               }
             });
 
-            // Set radio buttons based on data
+            // ตั้งค่าปุ่มเลือกแบบตัวเลือกตามข้อมูลที่ได้รับ
             if (data.inputs.radio1) {
               document.querySelector(`input[name="radio1"][value="${data.inputs.radio1}"]`).checked = true;
             }
@@ -161,7 +169,7 @@
           });
       });
 
-      // Add real-time checking for signature3
+      // เพิ่มการตรวจสอบแบบเรียลไทม์สำหรับ signature3
       document.getElementById('signature3').addEventListener('input', function() {
         const signature3 = document.getElementById('signature3').value;
         if (signature3.toLowerCase() === 'sky') {
