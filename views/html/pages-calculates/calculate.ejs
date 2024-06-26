@@ -13,17 +13,24 @@
     <input type="text" id="input2" name="input2" placeholder="Input 2" /><br>
     <input type="text" id="input3" name="input3" placeholder="Input 3" />
     <input type="text" id="input4" name="input4" placeholder="Input 4" /><br>
-    <input type="text" id="signature" name="signature" placeholder="Signature" />
-    <button type="button" id="fillSignature">Fill Signature</button><br>
+    <input type="text" id="signature1" name="signature1" placeholder="Signature 1" />
+    <button type="button" id="fillSignature1">Fill Signature 1</button><br>
+    <input type="text" id="signature2" name="signature2" placeholder="Signature 2" />
+    <button type="button" id="fillSignature2">Fill Signature 2</button><br>
+    <input type="text" id="signature3" name="signature3" placeholder="Signature 3" />
+    <button type="button" id="fillSignature3">Fill Signature 3</button><br>
     
-    <button type="submit">Submit</button>
-    <button type="submit">Submit</button>
+    <textarea id="textarea1" name="textarea1" placeholder="Textarea 1"></textarea><br>
+    <textarea id="textarea2" name="textarea2" placeholder="Textarea 2"></textarea><br>
+    
     <button type="submit">Submit</button>
   </form>
 
   <h1>Sum Result: <span id="sumResult"></span></h1>
   <h1>Difference Result: <span id="differenceResult"></span></h1>
-  <h1>Signature Status: <span id="signatureStatus"></span></h1>
+  <h1>Signature 1 Status: <span id="signatureStatus1"></span></h1>
+  <h1>Signature 2 Status: <span id="signatureStatus2"></span></h1>
+  <h1>Signature 3 Status: <span id="signatureStatus3"></span></h1>
   
   <form action="/logout" method="POST">
     <button type="submit">Logout</button>
@@ -34,23 +41,23 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', (event) => {
-      // ฟังก์ชันรวบรวมค่าป้อนข้อมูลจากฟอร์ม
       function getInputs() {
         const inputs = {};
-        document.querySelectorAll('#calcForm input').forEach(input => {
+        document.querySelectorAll('#calcForm input, #calcForm textarea').forEach(input => {
           inputs[input.name] = input.value;
         });
         return inputs;
       }
 
-      // ฟังก์ชันส่งข้อมูลไปยังเซิร์ฟเวอร์
       function sendInputs(inputs) {
         const socket = io();
         socket.emit('calculate', inputs);
         socket.on('calculatedResult', (data) => {
           document.getElementById('sumResult').textContent = data.sumResult;
           document.getElementById('differenceResult').textContent = data.differenceResult;
-          document.getElementById('signatureStatus').textContent = data.signatureStatus;
+          document.getElementById('signatureStatus1').textContent = data.signatureStatus1;
+          document.getElementById('signatureStatus2').textContent = data.signatureStatus2;
+          document.getElementById('signatureStatus3').textContent = data.signatureStatus3;
         });
       }
 
@@ -68,8 +75,18 @@
           }
         });
 
-      document.getElementById('fillSignature').addEventListener('click', function() {
-        document.getElementById('signature').value = 'สมหมาย';
+      document.getElementById('fillSignature1').addEventListener('click', function() {
+        document.getElementById('signature1').value = 'สมหมาย';
+        sendInputs(getInputs());
+      });
+
+      document.getElementById('fillSignature2').addEventListener('click', function() {
+        document.getElementById('signature2').value = 'สมหมาย';
+        sendInputs(getInputs());
+      });
+
+      document.getElementById('fillSignature3').addEventListener('click', function() {
+        document.getElementById('signature3').value = 'สมหมาย';
         sendInputs(getInputs());
       });
 

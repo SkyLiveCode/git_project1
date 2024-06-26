@@ -38,8 +38,10 @@ exports.handleSocketConnection = (io) => {
         socket.on('calculate', (data) => {
             const sumResult = Number(data.input1) + Number(data.input2);
             const differenceResult = Number(data.input3) - Number(data.input4);
-            const signatureStatus = data.signature ? 'Signed' : 'Not Signed';
-            socket.emit('calculatedResult', { sumResult, differenceResult, signatureStatus });
+            const signatureStatus1 = data.signature1 ? 'Signed' : 'Not Signed';
+            const signatureStatus2 = data.signature2 ? 'Signed' : 'Not Signed';
+            const signatureStatus3 = data.signature3 ? 'Signed' : 'Not Signed';
+            socket.emit('calculatedResult', { sumResult, differenceResult, signatureStatus1, signatureStatus2, signatureStatus3 });
         });
 
         socket.on('disconnect', () => {
