@@ -2,7 +2,8 @@ const db = require('../config/database');
 
 // ฟังก์ชันแสดงหน้าคำนวณ
 exports.showCalculatePage = (req, res) => {
-    res.render('html/pages-calculates/pages-calculate1');  // เรนเดอร์ไฟล์เทมเพลต 'pages-calculate1.ejs'
+    const { equipment_id, id_hospital, id_categories } = req.session;
+    res.render('html/pages-calculates/pages-calculate1', { equipment_id, id_hospital, id_categories });
 };
 
 // ฟังก์ชันคำนวณและส่งผลลัพธ์กลับ

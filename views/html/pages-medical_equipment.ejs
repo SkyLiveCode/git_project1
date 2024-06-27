@@ -30,12 +30,12 @@
                 <th>ID. No.</th>
                 <th>ลบ</th>
                 <th>แก้ไข</th>
+                <th>calculate</th>
             </tr>
         </thead>
         <tbody>
             <% medicalEquipments.forEach(equipment => { %>
             <tr>
-                <!-- ฟอร์มสำหรับแก้ไขข้อมูลอุปกรณ์ทางการแพทย์ -->
                 <form action="/updateMedicalEquipment" method="post" class="edit-form">
                     <td><%= equipment.id %></td>                    
                     <td class="equipment-name">
@@ -55,6 +55,13 @@
                     </td>
                     <input type="hidden" name="id" value="<%= equipment.id %>">
                     <input type="hidden" name="id_hospital" value="<%= equipment.id_hospital %>">
+                    <td>
+                        <% if (equipment.id_categories == 1) { %>
+                            <a href="/calculate1?equipment_id=<%= equipment.id %>&id_hospital=<%= equipment.id_hospital %>&id_categories=<%= equipment.id_categories %>">Calculate</a>
+                        <% } else if (equipment.id_categories == 2) { %>
+                            <a href="/calculate2?equipment_id=<%= equipment.id %>&id_hospital=<%= equipment.id_hospital %>&id_categories=<%= equipment.id_categories %>">Calculate</a>
+                        <% } %>
+                    </td>
                 </form>
             </tr>
             <% }) %>
