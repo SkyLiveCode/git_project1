@@ -34,8 +34,9 @@ exports.calculate = (req, res) => {
 // ฟังก์ชันสำหรับดึงข้อมูล inputs จากฐานข้อมูล
 exports.getInputs = async (req, res) => {
     try {
-        const sql = 'SELECT inputs FROM calculationstest WHERE id = 2';  // ใช้ id = 2
-        const [result] = await db.query(sql);
+        const equipment_id = req.session.equipment_id; // ใช้ id = equipment_id ที่ถูกส่งมา
+        const sql = 'SELECT inputs FROM equipment WHERE id = ?';  
+        const [result] = await db.query(sql, [equipment_id]);
         res.json(result[0]); // ส่งข้อมูล inputs กลับไปในรูปแบบ JSON
     } catch (err) {
         console.error(err); // แสดงข้อผิดพลาด
@@ -47,8 +48,9 @@ exports.getInputs = async (req, res) => {
 exports.updateInputs = async (req, res) => {
     try {
         const inputs = req.body.inputs;  // ดึงข้อมูล inputs จาก request body
-        const sql = 'UPDATE calculationstest SET inputs = ? WHERE id = 2';  // ใช้ id = 2
-        await db.query(sql, [JSON.stringify(inputs)]);
+        const equipment_id = req.session.equipment_id; // ใช้ id = equipment_id ที่ถูกส่งมา
+        const sql = 'UPDATE equipment SET inputs = ? WHERE id = ?';  
+        await db.query(sql, [JSON.stringify(inputs), equipment_id]);
         res.json({ success: true });  // ส่งข้อมูลตอบกลับว่าอัปเดตสำเร็จ
     } catch (err) {
         console.error(err); // แสดงข้อผิดพลาด
