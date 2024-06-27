@@ -2,7 +2,7 @@ const db = require('../config/database');
 
 // ฟังก์ชันแสดงหน้าคำนวณ
 exports.showCalculatePage = (req, res) => {
-    res.render('html/pages-calculates/pages-calculate1');  // เรนเดอร์ไฟล์เทมเพลต 'pages-calculate1.ejs'
+    res.render('html/pages-calculates/pages-calculate2');  // เรนเดอร์ไฟล์เทมเพลต 'pages-calculate2.ejs'
 };
 
 // ฟังก์ชันคำนวณและส่งผลลัพธ์กลับ
@@ -33,7 +33,7 @@ exports.calculate = (req, res) => {
 // ฟังก์ชันสำหรับดึงข้อมูล inputs จากฐานข้อมูล
 exports.getInputs = async (req, res) => {
     try {
-        const sql = 'SELECT inputs FROM calculationstest WHERE id = 1';  // ใช้ id = 1
+        const sql = 'SELECT inputs FROM calculationstest WHERE id = 2';  // ใช้ id = 2
         const [result] = await db.query(sql);
         res.json(result[0]); // ส่งข้อมูล inputs กลับไปในรูปแบบ JSON
     } catch (err) {
@@ -46,7 +46,7 @@ exports.getInputs = async (req, res) => {
 exports.updateInputs = async (req, res) => {
     try {
         const inputs = req.body.inputs;  // ดึงข้อมูล inputs จาก request body
-        const sql = 'UPDATE calculationstest SET inputs = ? WHERE id = 1';  // ใช้ id = 1
+        const sql = 'UPDATE calculationstest SET inputs = ? WHERE id = 2';  // ใช้ id = 2
         await db.query(sql, [JSON.stringify(inputs)]);
         res.json({ success: true });  // ส่งข้อมูลตอบกลับว่าอัปเดตสำเร็จ
     } catch (err) {

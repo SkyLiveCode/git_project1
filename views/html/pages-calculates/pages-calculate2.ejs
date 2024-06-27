@@ -56,11 +56,11 @@
   </form>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="/assets/js/calculate1.js"></script>
+  <script src="/assets/js/calculate2.js"></script>
   <script>
     // ฟังก์ชันสำหรับดึงข้อมูล inputs จากเซิร์ฟเวอร์
     function fetchInputs() {
-      fetch('/get-inputs1')
+      fetch('/get-inputs2')
         .then(response => response.json())
         .then(data => {
           if (data.inputs) {
@@ -165,7 +165,7 @@
       event.preventDefault();
       const inputs = getInputs();
 
-      fetch('/update-inputs1', {
+      fetch('/update-inputs2', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

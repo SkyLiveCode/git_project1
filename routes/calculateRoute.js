@@ -1,23 +1,19 @@
-// นำเข้าโมดูล express
 const express = require('express');
-// สร้าง router object จาก express
 const router = express.Router();
-// นำเข้า controller สำหรับการจัดการหน้าคำนวณ
-const calculateController = require('../controllers/calculateController1');
-// นำเข้าโมดูล middleware
-const { checkAuthenticated } = require('../middleware/authMiddleware'); 
+const calculateController1 = require('../controllers/calculateController1');
+const calculateController2 = require('../controllers/calculateController2');
+const { checkAuthenticated } = require('../middleware/authMiddleware');
 
-// กำหนดเส้นทาง GET สำหรับการแสดงหน้าคำนวณ และเรียกใช้ฟังก์ชัน showCalculatePage จาก calculateController
-router.get('/calculate', checkAuthenticated, calculateController.showCalculatePage);
+// เส้นทางสำหรับชุดที่ 1
+router.get('/calculate1', checkAuthenticated, calculateController1.showCalculatePage);
+router.post('/calculate1', checkAuthenticated, calculateController1.calculate);
+router.get('/get-inputs1', calculateController1.getInputs);
+router.post('/update-inputs1', calculateController1.updateInputs);
 
-// เส้นทาง POST สำหรับการคำนวณ
-router.post('/calculate', checkAuthenticated, calculateController.calculate);
+// เส้นทางสำหรับชุดที่ 2
+router.get('/calculate2', checkAuthenticated, calculateController2.showCalculatePage);
+router.post('/calculate2', checkAuthenticated, calculateController2.calculate);
+router.get('/get-inputs2', calculateController2.getInputs);
+router.post('/update-inputs2', calculateController2.updateInputs);
 
-// เส้นทางสำหรับดึงข้อมูล inputs จากฐานข้อมูล
-router.get('/get-inputs', calculateController.getInputs);
-
-// เส้นทางสำหรับอัปเดตข้อมูล inputs ในฐานข้อมูล
-router.post('/update-inputs', calculateController.updateInputs);
-
-// ส่งออกโมดูล router เพื่อให้สามารถใช้งานในไฟล์อื่นได้
 module.exports = router;

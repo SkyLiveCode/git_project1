@@ -13,7 +13,7 @@ function calculate(event) {
     data[key] = value;
   });
 
-  fetch('/calculate1', {
+  fetch('/calculate2', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
