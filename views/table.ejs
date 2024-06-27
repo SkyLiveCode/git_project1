@@ -38,8 +38,13 @@
             position: relative;
         }
         th .sort-arrow {
-            position: absolute;
-            right: 10px;
+            margin-left: 5px;
+            display: inline-flex;
+            flex-direction: column;
+        }
+        .sort-arrow span {
+            color: gray;
+            font-size: 12px;
         }
         th:hover {
             background-color: #f1f1f1;
@@ -85,15 +90,15 @@
         <table id="dataTable">
             <thead>
                 <tr>
-                    <th data-column="position">POSITION <span class="sort-arrow">&#9650;</span></th>
-                    <th data-column="email">EMAIL <span class="sort-arrow">&#9650;</span></th>
-                    <th data-column="city">CITY <span class="sort-arrow">&#9650;</span></th>
-                    <th data-column="date">DATE <span class="sort-arrow">&#9650;</span></th>
-                    <th data-column="salary">SALARY <span class="sort-arrow">&#9650;</span></th>
-                    <th data-column="age">AGE <span class="sort-arrow">&#9650;</span></th>
-                    <th data-column="experience">EXPERIENCE <span class="sort-arrow">&#9650;</span></th>
-                    <th data-column="status">STATUS <span class="sort-arrow">&#9650;</span></th>
-                    <th data-column="actions">ACTIONS <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="position">POSITION <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
+                    <th data-column="email">EMAIL <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
+                    <th data-column="city">CITY <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
+                    <th data-column="date">DATE <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
+                    <th data-column="salary">SALARY <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
+                    <th data-column="age">AGE <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
+                    <th data-column="experience">EXPERIENCE <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
+                    <th data-column="status">STATUS <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
+                    <th data-column="actions">ACTIONS <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -205,7 +210,23 @@
                 }
             });
 
+            updateSortArrows(column);
             renderTable();
+        }
+
+        function updateSortArrows(column) {
+            document.querySelectorAll('.sort-arrow span').forEach(span => {
+                span.style.color = 'gray';
+            });
+
+            const activeArrow = document.querySelector(`th[data-column="${column}"] .sort-arrow`);
+            if (currentSortDirection === 'asc') {
+                activeArrow.children[0].style.color = 'black'; // Up arrow
+                activeArrow.children[1].style.color = 'gray'; // Down arrow
+            } else {
+                activeArrow.children[0].style.color = 'gray'; // Up arrow
+                activeArrow.children[1].style.color = 'black'; // Down arrow
+            }
         }
     </script>
 </body>
