@@ -2,18 +2,11 @@ const express = require('express');
 const router = express.Router();
 const medicalEquipmentController = require('../controllers/medicalEquipmentController');
 
-// เส้นทางเพื่อเก็บ id_hospital ใน session และเปลี่ยนเส้นทางไปยังหน้า medical equipment
+// เส้นทางเพื่อเก็บ id_hospital ใน session และเปลี่ยนเส้นทางไปยังหน้า pages-medical_equipment
 // เส้นทางนี้จะดึง id_hospital จาก URL เก็บใน session และเปลี่ยนเส้นทางผู้ใช้ไปยังหน้า medical equipment
-router.get('/html/pages-medical_equipment/:id', (req, res) => {
-    req.session.id_hospital = req.params.id; // เก็บ id_hospital ใน session
+router.get('/html/pages-medical_equipment/:a', (req, res) => {
+    req.session.id_hospital = req.params.a; // เก็บ id_hospital ใน session
     res.redirect('/html/pages-medical_equipment'); // เปลี่ยนเส้นทางไปยังหน้าข้อมูลอุปกรณ์ทางการแพทย์
-});
-
-// เส้นทางเพื่อแสดงหน้า medical equipment
-// เส้นทางนี้จะใช้ id_hospital จาก session และแสดงหน้า medical equipment
-router.get('/html/pages-medical_equipment/:id_hospital', (req, res) => {
-    req.session.id_hospital = req.params.id_hospital;
-    res.render('html/pages-medical_equipment', { id_hospital: req.params.id_hospital });
 });
 
 // เส้นทางเพื่อแสดงหน้า medical equipment information
