@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrollable Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            cursor: pointer;
+            position: relative;
+        }
+        th .sort-arrow {
+            position: absolute;
+            right: 10px;
+        }
+        th:hover {
+            background-color: #f1f1f1;
+        }
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .pagination {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .pagination button {
+            padding: 10px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        #searchInput {
+            margin-bottom: 10px;
+        }
+        .rows-per-page {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Scrollable Table</h1>
+        <div class="rows-per-page">
+            <div>
+                Show 
+                <select id="rowsPerPageSelect">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="20">20</option>
+                </select> 
+                entries
+            </div>
+            <input type="text" id="searchInput" placeholder="Search...">
+        </div>
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th data-column="position">POSITION <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="email">EMAIL <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="city">CITY <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="date">DATE <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="salary">SALARY <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="age">AGE <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="experience">EXPERIENCE <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="status">STATUS <span class="sort-arrow">&#9650;</span></th>
+                    <th data-column="actions">ACTIONS <span class="sort-arrow">&#9650;</span></th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Data will be populated here by JavaScript -->
+            </tbody>
+        </table>
+        <div class="pagination">
+            <button id="prevPage">Previous</button>
+            <span id="pageIndicator">1</span>
+            <button id="nextPage">Next</button>
+        </div>
+    </div>
+    <script>
+        let currentPage = 1;
+        let rowsPerPage = 10;
+        let data = [];
+        let filteredData = [];
+        let currentSortColumn = '';
+        let currentSortDirection = 'asc';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+            document.getElementById('searchInput').addEventListener('input', searchTable);
+            document.getElementById('prevPage').addEventListener('click', () => changePage(-1));
+            document.getElementById('nextPage').addEventListener('click', () => changePage(1));
+            document.getElementById('rowsPerPageSelect').addEventListener('change', changeRowsPerPage);
+
+            document.querySelectorAll('th').forEach(th => {
+                th.addEventListener('click', () => sortTable(th.dataset.column));
+            });
+        });
+
+        function fetchData() {
+            // Replace this with an actual API call in a real-world scenario
+            data = [
+                // Sample data structure
+                { position: 'Safety Technician', email: 'amoakler8@shareasale.com', city: 'Mogilany', date: '12/29/2021', salary: '$11677.32', age: 39, experience: '9 Years', status: 'APPLIED', actions: '' },
+                { position: 'Administrative Assistant', email: 'aharvatt11@addtoany.com', city: 'Ulundi', date: '11/04/2021', salary: '$21782.82', age: 41, experience: '1 Year', status: 'CURRENT', actions: '' },
+                { position: 'Staff Accountant', email: 'aglozman1r@storify.com', city: 'Pendawanbaru', date: '08/25/2021', salary: '$10745.32', age: 27, experience: '3 Years', status: 'APPLIED', actions: '' },
+                { position: 'Analyst Programmer', email: 'bskirving24@cbsnews.com', city: 'Balky', date: '09/27/2021', salary: '$24733.28', age: 39, experience: '1 Year', status: 'RESIGNED', actions: '' },
+                { position: 'VP Quality Control', email: 'bcoulman1@yolasite.com', city: 'Hinigaran', date: '05/20/2021', salary: '$13633.69', age: 63, experience: '3 Years', status: 'PROFESSIONAL', actions: '' },
+                { position: 'VP Quality Control', email: 'blongland12@gizmodo.com', city: 'Damu', date: '07/18/2021', salary: '$22794.60', age: 62, experience: '2 Years', status: 'PROFESSIONAL', actions: '' }
+                // Add more sample data here
+            ];
+            filteredData = data;
+            renderTable();
+        }
+
+        function renderTable() {
+            const tableBody = document.getElementById('tableBody');
+            tableBody.innerHTML = '';
+
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const pageData = filteredData.slice(start, end);
+
+            pageData.forEach(row => {
+                const tr = document.createElement('tr');
+                for (const key in row) {
+                    const td = document.createElement('td');
+                    td.textContent = row[key];
+                    tr.appendChild(td);
+                }
+                tableBody.appendChild(tr);
+            });
+
+            document.getElementById('pageIndicator').textContent = currentPage;
+        }
+
+        function searchTable() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            filteredData = data.filter(row => {
+                return Object.values(row).some(value => value.toString().toLowerCase().includes(query));
+            });
+            currentPage = 1;
+            renderTable();
+        }
+
+        function changePage(direction) {
+            const maxPage = Math.ceil(filteredData.length / rowsPerPage);
+            if (currentPage + direction > 0 && currentPage + direction <= maxPage) {
+                currentPage += direction;
+                renderTable();
+            }
+        }
+
+        function changeRowsPerPage() {
+            rowsPerPage = parseInt(document.getElementById('rowsPerPageSelect').value);
+            currentPage = 1;
+            renderTable();
+        }
+
+        function sortTable(column) {
+            if (currentSortColumn === column) {
+                currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSortColumn = column;
+                currentSortDirection = 'asc';
+            }
+
+            filteredData.sort((a, b) => {
+                const valueA = a[column];
+                const valueB = b[column];
+
+                if (currentSortDirection === 'asc') {
+                    return valueA > valueB ? 1 : -1;
+                } else {
+                    return valueA < valueB ? 1 : -1;
+                }
+            });
+
+            renderTable();
+        }
+    </script>
+</body>
+</html>
