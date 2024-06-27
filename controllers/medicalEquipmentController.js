@@ -3,7 +3,7 @@ const db = require('../config/database');
 // ฟังก์ชันเพื่อแสดงหน้า medical equipment information
 exports.renderMedicalEquipmentInformation = async (req, res) => {
     try {
-        const id_hospital = req.query.id; // Get id_hospital from query parameters
+        const id_hospital = req.session.id_hospital; // ดึง id_hospital จาก session
         const [medicalEquipments] = await db.query('SELECT * FROM equipment WHERE id_hospital = ?', [id_hospital]);
         res.render('html/pages-medical_equipment', { medicalEquipments, id_hospital });
     } catch (err) {

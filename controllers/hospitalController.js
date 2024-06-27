@@ -4,6 +4,7 @@ const db = require('../config/database');
 exports.renderHospitalInformation = async (req, res) => {
     try {
         const [hospitals] = await db.query('SELECT * FROM hospital');
+        req.session.hospitals = hospitals; // เก็บข้อมูล hospitals ใน session
         res.render('html/pages-hospital_information', { hospitals });
     } catch (err) {
         console.error(err);
