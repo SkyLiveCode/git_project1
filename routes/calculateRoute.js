@@ -3,7 +3,7 @@ const express = require('express');
 // สร้าง router object จาก express
 const router = express.Router();
 // นำเข้า controller สำหรับการจัดการหน้าคำนวณ
-const calculateController = require('../controllers/calculateController');
+const calculateController = require('../controllers/calculateController1');
 // นำเข้าโมดูล middleware
 const { checkAuthenticated } = require('../middleware/authMiddleware'); 
 
