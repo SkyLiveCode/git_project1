@@ -9,8 +9,12 @@
     <h1>ข้อมูลอุปกรณ์ทางการแพทย์</h1>
     <!-- ฟอร์มสำหรับเพิ่มอุปกรณ์ทางการแพทย์ -->
     <form action="/addMedicalEquipment" method="post">
-        <label for="equipment_name">ชื่ออุปกรณ์:</label>
-        <input type="text" id="equipment_name" name="equipment_name" required>
+        <label for="id_category">ชื่ออุปกรณ์:</label>
+        <select id="id_category" name="id_category" required>
+            <% categories.forEach(category => { %>
+                <option value="<%= category.id %>"><%= category.id %>. <%= category.categorie_name %> (<%= category.short_name %>)</option>
+            <% }) %>
+        </select>
         <label for="id_no">ID. No.:</label>
         <input type="text" id="id_no" name="id_no" required>
         <input type="hidden" name="id_hospital" value="<%= id_hospital %>">
