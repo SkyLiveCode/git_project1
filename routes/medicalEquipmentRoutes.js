@@ -7,6 +7,11 @@ router.get('/html/pages-medical_equipment/:id', (req, res) => {
     req.session.id_hospital = req.params.id; // เก็บ id_hospital ใน session
     res.redirect('/html/pages-medical_equipment'); // เปลี่ยนเส้นทางไปยังหน้าข้อมูลอุปกรณ์ทางการแพทย์
 });
+router.get('/html/pages-medical_equipment/:id_hospital', (req, res) => {
+    req.session.id_hospital = req.params.id_hospital;
+    res.render('html/pages-medical_equipment', { id_hospital: req.params.id_hospital });
+});
+
 // เส้นทางเพื่อแสดงหน้า medical equipment information
 router.get('/html/pages-medical_equipment', medicalEquipmentController.renderMedicalEquipmentInformation);
 
