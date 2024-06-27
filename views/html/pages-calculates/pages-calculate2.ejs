@@ -50,7 +50,7 @@
   <h1>Signature 2 Status: <span id="signatureStatus2"></span></h1>
   <h1>Signature 3 Status: <span id="signatureStatus3"></span></h1>
 
-  <img id="signatureImage" src="path_to_your_image.jpg" style="display:none;" />
+  <img id="signatureImage" src="" style="display:none;" />
 
   <form action="/logout" method="POST">
     <button type="submit">Logout</button>
@@ -97,11 +97,16 @@
         document.getElementById('signatureStatus3').textContent = data.signatureStatus3;
 
         // แสดง/ซ่อนรูปภาพตามลายเซ็นต์ 3
-        const signature3 = document.getElementById('signature3').value;
-        if (signature3.toLowerCase() === 'sky') {
-          document.getElementById('signatureImage').style.display = 'block';
+        const signature3 = document.getElementById('signature3').value.toLowerCase();
+        const signatureImage = document.getElementById('signatureImage');
+        if (signature3 === 'sky') {
+          signatureImage.src = 'path_to_sky_image.jpg';
+          signatureImage.style.display = 'block';
+        } else if (signature3 === 'nezuko') {
+          signatureImage.src = 'path_to_nezuko_image.jpg';
+          signatureImage.style.display = 'block';
         } else {
-          document.getElementById('signatureImage').style.display = 'none';
+          signatureImage.style.display = 'none';
         }
 
         // ตั้งค่าปุ่มเลือกแบบตัวเลือก
@@ -183,11 +188,16 @@
 
     // ตรวจสอบลายเซ็นต์ 3 แบบเรียลไทม์
     document.getElementById('signature3').addEventListener('input', function() {
-      const signature3 = document.getElementById('signature3').value;
-      if (signature3.toLowerCase() === 'sky') {
-        document.getElementById('signatureImage').style.display = 'block';
+      const signature3 = document.getElementById('signature3').value.toLowerCase();
+      const signatureImage = document.getElementById('signatureImage');
+      if (signature3 === 'sky') {
+        signatureImage.src = 'path_to_sky_image.jpg';
+        signatureImage.style.display = 'block';
+      } else if (signature3 === 'nezuko') {
+        signatureImage.src = 'path_to_nezuko_image.jpg';
+        signatureImage.style.display = 'block';
       } else {
-        document.getElementById('signatureImage').style.display = 'none';
+        signatureImage.style.display = 'none';
       }
     });
   </script>
