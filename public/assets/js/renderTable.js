@@ -24,20 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
 function fetchData() {
     const tableBody = document.getElementById('tableBody');
     const rows = tableBody.getElementsByTagName('tr');
+    const headers = document.querySelectorAll('#dataTable thead th');
+    const headerKeys = Array.from(headers).map(header => header.dataset.column);
+
     data = Array.from(rows).map(row => {
         const cells = row.getElementsByTagName('td');
-        return {
-            position: cells[0].textContent,
-            email: cells[1].textContent,
-            city: cells[2].textContent,
-            date: cells[3].textContent,
-            salary: cells[4].textContent,
-            age: parseInt(cells[5].textContent, 10),
-            experience: cells[6].textContent,
-            status: cells[7].textContent,
-            actions: cells[8].textContent
-        };
+        let rowData = {};
+        headerKeys.forEach((key, index) => {
+            rowData[key] = cells[index].textContent;
+        });
+        return rowData;
     });
+
     filteredData = data;
     renderTable();
 }
