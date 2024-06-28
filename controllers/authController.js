@@ -1,5 +1,6 @@
 // นำเข้าโมเดล userModel จากโฟลเดอร์ models
 const userModel = require('../models/userModel');
+const bcrypt = require('bcrypt');
 
 // ฟังก์ชัน login สำหรับจัดการการเข้าสู่ระบบ
 exports.login = async (req, res) => {
@@ -36,4 +37,16 @@ exports.logout = (req, res) => {
   res.clearCookie('user'); // ลบคุกกี้ผู้ใช้
   req.session.destroy(); // ทำลาย session
   res.redirect('/login'); // เปลี่ยนเส้นทางไปที่หน้าแรก
+};
+
+// ฟังก์ชัน reset Password
+exports.resetPasswordDirect = async (req, res) => {
+  // โค้ดฟังก์ชันเปล่า
+  try {
+    // ฟังก์ชันนี้จะมีการทำงานเพิ่มเติมในอนาคต
+    res.render('resetPasswordDirect', { message: 'This is a placeholder for reset password functionality.' });
+  } catch (err) {
+    console.error('Error in resetPasswordDirect:', err);
+    res.status(500).render('resetPasswordDirect', { error: 'Server Error' });
+  }
 };
