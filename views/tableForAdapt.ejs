@@ -24,9 +24,9 @@
             <div>
                 Show 
                 <select id="rowsPerPageSelect">
-                    <option value="5">5</option>
                     <option value="10" selected>10</option>
                     <option value="20">20</option>
+                    <option value="all">All</option>
                 </select> 
                 entries
             </div>
@@ -124,7 +124,61 @@
                     <td>PROFESSIONAL</td>
                     <td></td>
                 </tr>
-                <!-- Add more rows as needed -->
+                <tr>
+                    <td>Software Engineer</td>
+                    <td>johndoe@tech.com</td>
+                    <td>San Francisco</td>
+                    <td>01/01/2022</td>
+                    <td>$90000.00</td>
+                    <td>30</td>
+                    <td>5 Years</td>
+                    <td>APPLIED</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Marketing Manager</td>
+                    <td>janedoe@marketing.com</td>
+                    <td>New York</td>
+                    <td>02/02/2022</td>
+                    <td>$85000.00</td>
+                    <td>35</td>
+                    <td>7 Years</td>
+                    <td>CURRENT</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Product Designer</td>
+                    <td>designpro@creative.com</td>
+                    <td>Seattle</td>
+                    <td>03/03/2022</td>
+                    <td>$75000.00</td>
+                    <td>28</td>
+                    <td>3 Years</td>
+                    <td>APPLIED</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Data Scientist</td>
+                    <td>datasci@guru.com</td>
+                    <td>Boston</td>
+                    <td>04/04/2022</td>
+                    <td>$120000.00</td>
+                    <td>32</td>
+                    <td>6 Years</td>
+                    <td>CURRENT</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>HR Manager</td>
+                    <td>hrmanager@hr.com</td>
+                    <td>Chicago</td>
+                    <td>05/05/2022</td>
+                    <td>$65000.00</td>
+                    <td>45</td>
+                    <td>10 Years</td>
+                    <td>PROFESSIONAL</td>
+                    <td></td>
+                </tr>
             </tbody>
         </table>
         <div id="entryInfo"></div>
@@ -184,7 +238,13 @@
             tableBody.innerHTML = '';
 
             const start = (currentPage - 1) * rowsPerPage;
-            const end = start + rowsPerPage;
+            let end = start + rowsPerPage;
+            if (rowsPerPage === 'all') {
+                end = filteredData.length;
+            } else {
+                end = Math.min(start + rowsPerPage, filteredData.length);
+            }
+
             const pageData = filteredData.slice(start, end);
 
             pageData.forEach(row => {
@@ -211,7 +271,7 @@
         }
 
         function changePage(direction) {
-            const maxPage = Math.ceil(filteredData.length / rowsPerPage);
+            const maxPage = rowsPerPage === 'all' ? 1 : Math.ceil(filteredData.length / rowsPerPage);
             if (currentPage + direction > 0 && currentPage + direction <= maxPage) {
                 currentPage += direction;
                 renderTable();
@@ -219,7 +279,8 @@
         }
 
         function changeRowsPerPage() {
-            rowsPerPage = parseInt(document.getElementById('rowsPerPageSelect').value);
+            const selectedValue = document.getElementById('rowsPerPageSelect').value;
+            rowsPerPage = selectedValue === 'all' ? filteredData.length : parseInt(selectedValue, 10);
             currentPage = 1;
             renderTable();
         }
@@ -260,7 +321,12 @@
 
         function updateEntryInfo() {
             const start = (currentPage - 1) * rowsPerPage + 1;
-            const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+            let end = currentPage * rowsPerPage;
+            if (rowsPerPage === filteredData.length) {
+                end = filteredData.length;
+            } else {
+                end = Math.min(currentPage * rowsPerPage, filteredData.length);
+            }
             const total = filteredData.length;
             document.getElementById('entryInfo').textContent = `Showing ${start} to ${end} of ${total} entries`;
         }
