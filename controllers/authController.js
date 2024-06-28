@@ -22,19 +22,33 @@ exports.login = async (req, res) => {
 
 // ฟังก์ชัน register สำหรับจัดการการสมัครสมาชิก
 exports.register = async (req, res) => {
-  const { name, email, password, confirmPassword } = req.body; // เพิ่ม confirmPassword
+  const { name, email, password, confirmPassword } = req.body;
+  
+  // ตรวจสอบว่ารหัสผ่านตรงกันหรือไม่
   if (password !== confirmPassword) {
-    return res.render('register', { error: 'Passwords do not match' });
+    return res.render('register', { passwordError: 'Passwords do not match' });
   }
+
   try {
+    // ตรวจสอบว่ามีผู้ใช้ที่ใช้ชื่อหรืออีเมลนี้อยู่แล้วหรือไม่
+    const existingUserByName = await userModel.findUserByName(name);
+    if (existingUserByName) {
+      return res.render('register', { nameError: 'Full Name is already taken' });
+    }
+    
+    const existingUserByEmail = await userModel.findUserByEmail(email);
+    if (existingUserByEmail) {
+      return res.render('register', { emailError: 'Email is already registered' });
+    }
+
+    // สร้างผู้ใช้ใหม่
     await userModel.createUser({ name, email, password });
-    res.redirect('/login'); // เปลี่ยนเส้นทางไปที่หน้า login หลังจากสมัครสมาชิกสำเร็จ
+    res.redirect('/login');
   } catch (err) {
     console.error('Error in register:', err);
     res.status(500).render('register', { error: 'Registration failed' });
   }
 };
-
 
 // ฟังก์ชัน logout สำหรับจัดการการออกจากระบบ
 exports.logout = (req, res) => {

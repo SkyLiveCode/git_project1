@@ -1,33 +1,127 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light-style customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
 <head>
-  <meta charset="UTF-8">
-  <title>Login</title>
-  <!-- ลิงก์ไปยังไฟล์ CSS สำหรับสไตล์ของหน้าเว็บ -->
-  <link rel="stylesheet" href="/assets/css/style.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <meta name="description" content="" />
+
+    <!-- logo -->
+    <link rel="icon" type="image/x-icon" href="assets/img/icons/brands/logo.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet" />
+
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="assets/vendor/fonts/boxicons.css" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="assets/css/demo.css" />
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+
+    <!-- Page CSS -->
+    <link rel="stylesheet" href="assets/vendor/css/pages/page-auth.css" />
+    <!-- Helpers -->
+    <script src="assets/vendor/js/helpers.js"></script>
+
+    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <script src="assets/js/config.js"></script>
 </head>
 <body>
-  <h1>Login</h1>
-  <!-- ถ้ามีข้อความแจ้งเตือน แสดงออกมา -->
-  <% if (typeof error !== 'undefined') { %>
-    <p style="color: red;"><%= error %></p>
-  <% } %>
-  <!-- ฟอร์มสำหรับการเข้าสู่ระบบ -->
-  <form id="loginForm" action="/login" method="POST">
-    <!-- ช่อง input สำหรับกรอกอีเมล -->
-    <input type="email" id="email" name="email" placeholder="Email" required />
-    <!-- ช่อง input สำหรับกรอกรหัสผ่าน -->
-    <input type="password" id="password" name="password" placeholder="Password" required />
-    <!-- ปุ่มสำหรับส่งฟอร์มเข้าสู่ระบบ -->
-    <button type="submit">Login</button>
-  </form>
-  <!-- เพิ่มลิงก์ไปยังหน้า register -->
-  <p>Don't have an account? <a href="/register">Register here</a></p>
-  <!-- เพิ่มลิงก์ไปยังหน้า reset-password -->
-  <p><a href="/reset-password-direct">reset password</a></p>
-  <!-- ลิงก์ไปยังไฟล์ socket.io.js เพื่อใช้ socket.io สำหรับการสื่อสารแบบ real-time -->
-  <script src="/socket.io/socket.io.js"></script>
-  <!-- ลิงก์ไปยังไฟล์ JavaScript ฝั่งลูกค้า -->
-  <script src="/assets/js/script.js"></script>
+    <!-- Content -->
+    <div class="container-xxl">
+      <div class="authentication-wrapper authentication-basic container-p-y">
+        <div class="authentication-inner">
+          <!-- Register -->
+          <div class="card">
+            <div class="card-body">
+              <!-- Logo -->
+              <div class="app-brand justify-content-center">
+                <a href="/" class="app-brand-link">
+                  <span class="app-brand-logo demo">
+                    <img src="assets/img/icons/brands/logo.png" width="45" height="45" alt="Brand Logo">
+                  </span>
+                  <span class="app-brand-text demo menu-text fw-bolder ms-2">AT PREVENT</span>
+                </a>
+              </div>
+              <!-- /Logo -->
+              <h4 class="mb-2">Welcome to Professional with Quality Service</h4>
+              <p class="mb-4">Please sign-in to your account</p>
+
+              <!-- ถ้ามีข้อความแจ้งเตือน แสดงออกมา -->
+              <% if (typeof error !== 'undefined') { %>
+                <p style="color: red;"><%= error %></p>
+              <% } %>
+
+              <form id="formAuthentication" class="mb-3" action="" method="POST">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus />
+                </div>
+                <div class="mb-3 form-password-toggle">
+                  <div class="d-flex justify-content-between">
+                    <label class="form-label" for="password">Password</label>
+                    <a href="/reset-password-direct">
+                      <small>Forgot Password?</small>
+                    </a>
+                  </div>
+                  <div class="input-group input-group-merge">
+                    <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
+                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="remember-me" name="remember-me" />
+                    <label class="form-check-label" for="remember-me"> Remember Me </label>
+                  </div>
+                </div>
+                <div id="login-error" class="form-text text-danger" style="display: none;">Invalid credentials or account not verified.</div>
+                <div class="mb-3">
+                  <button class="btn btn-primary d-grid w-100" type="submit">Sign in</button>
+                </div>
+              </form>
+
+              <p class="text-center">
+                <span>New on our platform?</span>
+                <a href="/register">
+                  <span>Create an account</span>
+                </a>
+              </p>
+            </div>
+          </div>
+          <!-- /Register -->
+        </div>
+      </div>
+    </div>
+
+    <!-- / Content -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="assets/vendor/libs/popper/popper.js"></script>
+    <script src="assets/vendor/js/bootstrap.js"></script>
+    <script src="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="assets/vendor/libs/apex-charts/apexcharts.js"></script>
+
+    <!-- Main JS -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="assets/js/dashboards-analytics.js"></script>
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 </html>

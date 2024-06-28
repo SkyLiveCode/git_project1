@@ -19,6 +19,30 @@ exports.findUser = async (email, password) => {
   }
 };
 
+// ฟังก์ชัน findUserByEmail สำหรับค้นหาผู้ใช้โดยอีเมล
+exports.findUserByEmail = async (email) => {
+  try {
+    const query = 'SELECT * FROM users WHERE email = ?'; // คำสั่ง SQL สำหรับค้นหาผู้ใช้โดยอีเมล
+    const [results] = await db.query(query, [email]); // รันคำสั่ง SQL
+    return results[0]; // ส่งผลลัพธ์ผู้ใช้ที่พบ (หรือ undefined ถ้าไม่พบผู้ใช้)
+  } catch (err) {
+    console.error('Error in findUserByEmail:', err);
+    throw err;
+  }
+};
+
+// ฟังก์ชัน findUserByName สำหรับค้นหาผู้ใช้โดยชื่อ
+exports.findUserByName = async (name) => {
+  try {
+    const query = 'SELECT * FROM users WHERE name = ?'; // คำสั่ง SQL สำหรับค้นหาผู้ใช้โดยชื่อ
+    const [results] = await db.query(query, [name]); // รันคำสั่ง SQL
+    return results[0]; // ส่งผลลัพธ์ผู้ใช้ที่พบ (หรือ undefined ถ้าไม่พบผู้ใช้)
+  } catch (err) {
+    console.error('Error in findUserByName:', err);
+    throw err;
+  }
+};
+
 // ฟังก์ชัน createUser สำหรับสร้างผู้ใช้ใหม่ในฐานข้อมูล
 exports.createUser = async (userData) => {
   try {
