@@ -54,7 +54,8 @@ app.use('/', medicalEquipmentRoutes);
 
 // กำหนดเส้นทางและ middleware เพื่อป้องกันการเข้าถึงสำหรับหน้าแรก
 app.get('/', checkAuthenticated, (req, res) => {
-  res.render('index'); // แสดงหน้า index.ejs (หน้าแรก)
+  const user = req.session.user;
+  res.render('index', { user }); // ส่งข้อมูลผู้ใช้ไปยังเทมเพลต
 });
 
 // กำหนดการเชื่อมต่อ Socket.IO

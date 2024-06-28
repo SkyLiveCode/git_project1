@@ -2,6 +2,12 @@
 const userModel = require('../models/userModel');
 const bcrypt = require('bcrypt');
 
+// ฟังก์ชันแสดงหน้าแรก
+exports.showHomePage = (req, res) => {
+  const user = req.session.user;
+  res.render('index', { user });
+};
+
 // ฟังก์ชัน login สำหรับจัดการการเข้าสู่ระบบ
 exports.login = async (req, res) => {
   const { email, password } = req.body; // รับค่า email และ password จาก request body
