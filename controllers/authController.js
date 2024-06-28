@@ -6,10 +6,15 @@ const bcrypt = require('bcrypt');
 exports.login = async (req, res) => {
   const { email, password } = req.body; // รับค่า email และ password จาก request body
   try {
-    const user = await userModel.findUser(email, password); // เรียกใช้ฟังก์ชัน findUser จาก userModel
+    const user = await userModel.findUserByEmail(email); // ค้นหาผู้ใช้โดยอีเมล
     if (!user) { // ถ้าไม่พบผู้ใช้
-      console.log('Invalid credentials');
-      return res.render('login', { error: 'Invalid credentials' }); // ส่งค่าข้อความแจ้งเตือนกลับไปที่เทมเพลต
+      console.log('Invalid email');
+      return res.render('login', { emailError: 'Invalid email' }); // ส่งค่าข้อความแจ้งเตือนกลับไปที่เทมเพลต
+    }
+    const isMatch = await bcrypt.compare(password, user.password); // เปรียบเทียบรหัสผ่าน
+    if (!isMatch) { // ถ้ารหัสผ่านไม่ตรงกัน
+      console.log('Invalid password');
+      return res.render('login', { passwordError: 'Invalid password' }); // ส่งค่าข้อความแจ้งเตือนกลับไปที่เทมเพลต
     }
     req.session.user = user; // เก็บข้อมูลผู้ใช้ใน session
     res.cookie('user', user, { maxAge: 7 * 24 * 60 * 60 * 1000 }); // ตั้งค่า cookie สำหรับ 7 วัน

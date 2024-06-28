@@ -64,6 +64,10 @@
                   <label for="email" class="form-label">Email</label>
                   <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus />
                 </div>
+                <!-- ถ้ามีข้อความแจ้งเตือน แสดงออกมา -->
+                <% if (typeof emailError !== 'undefined') { %>
+                  <p style="color: red;"><%= emailError %></p>
+                <% } %>
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
                     <label class="form-label" for="password">Password</label>
@@ -75,6 +79,10 @@
                     <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" />
                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                   </div>
+                  <!-- ถ้ามีข้อความแจ้งเตือน แสดงออกมา -->
+                  <% if (typeof passwordError !== 'undefined') { %>
+                    <p style="color: red;"><%= passwordError %></p>
+                  <% } %>
                 </div>
                 <div class="mb-3">
                   <div class="form-check">
