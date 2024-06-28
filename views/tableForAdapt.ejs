@@ -127,6 +127,7 @@
                 <!-- Add more rows as needed -->
             </tbody>
         </table>
+        <div id="entryInfo"></div>
         <div class="pagination">
             <button id="prevPage">Previous</button>
             <span id="pageIndicator">1</span>
@@ -197,6 +198,7 @@
             });
 
             document.getElementById('pageIndicator').textContent = currentPage;
+            updateEntryInfo();
         }
 
         function searchTable() {
@@ -254,6 +256,13 @@
                 activeArrow.children[0].style.color = 'gray'; // Up arrow
                 activeArrow.children[1].style.color = 'black'; // Down arrow
             }
+        }
+
+        function updateEntryInfo() {
+            const start = (currentPage - 1) * rowsPerPage + 1;
+            const end = Math.min(currentPage * rowsPerPage, filteredData.length);
+            const total = filteredData.length;
+            document.getElementById('entryInfo').textContent = `Showing ${start} to ${end} of ${total} entries`;
         }
     </script>
 </body>
