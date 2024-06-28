@@ -8,7 +8,7 @@
 <body>
   <a href="/html/pages-medical_equipment_by_id_hospital/<%= id_hospital %>">ดูอุปกรณ์ทางการแพทย์</a>
   <h1>Real-time Calculation</h1>
-  
+
   <form id="calcForm" method="POST">
     <!-- ช่องใส่ข้อมูลการคำนวณ -->
     <input type="text" id="calinput1" name="calinput1" placeholder="Calculation Input 1" />
@@ -19,7 +19,7 @@
     <input type="text" id="infoinput2" name="infoinput2" placeholder="Info Input 2" /><br>
     <input type="text" id="infoinput3" name="infoinput3" placeholder="Info Input 3" />
     <input type="text" id="infoinput4" name="infoinput4" placeholder="Info Input 4" /><br>
-    
+
     <!-- ช่องใส่ลายเซ็นต์ -->
     <input type="text" id="signature1" name="signature1" placeholder="Signature 1" />
     <button type="button" id="fillSignature1">Fill Signature 1</button><br>
@@ -27,7 +27,7 @@
     <button type="button" id="fillSignature2">Fill Signature 2</button><br>
     <input type="text" id="signature3" name="signature3" placeholder="Signature 3" />
     <button type="button" id="fillSignature3">Fill Signature 3</button><br>
-    
+
     <!-- ช่องใส่ข้อความ -->
     <textarea id="textarea1" name="textarea1" placeholder="Textarea 1"></textarea><br>
     <textarea id="textarea2" name="textarea2" placeholder="Textarea 2"></textarea><br>
@@ -102,7 +102,7 @@
         if (signature3 === 'sky') {
           signatureImage.src = 'path_to_sky_image.jpg';
           signatureImage.style.display = 'block';
-        } else if (signature3 === 'nezuko') {
+        } else if (signature3 === 'นายพงศ์สกาย รุ่งรพีพรพงษ์') {
           signatureImage.src = 'path_to_nezuko_image.jpg';
           signatureImage.style.display = 'block';
         } else {
@@ -130,7 +130,7 @@
     document.getElementById('fillSignature1').addEventListener('click', function() {
       const signature1Input = document.getElementById('signature1');
       if (!signature1Input.value) {
-        signature1Input.value = 'สมหมาย';
+        signature1Input.value = '<%= user.name %>';
         sendInputs(getInputs());
       }
     });
@@ -138,7 +138,7 @@
     document.getElementById('fillSignature2').addEventListener('click', function() {
       const signature2Input = document.getElementById('signature2');
       if (!signature2Input.value) {
-        signature2Input.value = 'สมหมาย';
+        signature2Input.value = '<%= user.name %>';
         sendInputs(getInputs());
       }
     });
@@ -146,7 +146,7 @@
     document.getElementById('fillSignature3').addEventListener('click', function() {
       const signature3Input = document.getElementById('signature3');
       if (!signature3Input.value) {
-        signature3Input.value = 'สมหมาย';
+        signature3Input.value = '<%= user.name %>';
         sendInputs(getInputs());
       }
     });
@@ -193,7 +193,7 @@
       if (signature3 === 'sky') {
         signatureImage.src = 'path_to_sky_image.jpg';
         signatureImage.style.display = 'block';
-      } else if (signature3 === 'nezuko') {
+      } else if (signature3 === 'นายพงศ์สกาย รุ่งรพีพรพงษ์') {
         signatureImage.src = 'path_to_nezuko_image.jpg';
         signatureImage.style.display = 'block';
       } else {
