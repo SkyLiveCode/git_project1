@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scrollable Table</title>
     <style>
-        th {
-            cursor: pointer;
-            position: relative;
-        }
-        th .sort-arrow {
+        .sort-arrow {
             margin-left: 5px;
             display: inline-flex;
             flex-direction: column;
@@ -51,7 +47,84 @@
                 </tr>
             </thead>
             <tbody id="tableBody">
-                <!-- Data will be populated here by JavaScript -->
+                <tr>
+                    <td>Safety Technician</td>
+                    <td>amoakler8@shareasale.com</td>
+                    <td>Mogilany</td>
+                    <td>12/29/2021</td>
+                    <td>$11677.32</td>
+                    <td>39</td>
+                    <td>9 Years</td>
+                    <td>APPLIED</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Administrative Assistant</td>
+                    <td>aharvatt11@addtoany.com</td>
+                    <td>Ulundi</td>
+                    <td>11/04/2021</td>
+                    <td>$21782.82</td>
+                    <td>41</td>
+                    <td>1 Year</td>
+                    <td>CURRENT</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Staff Accountant</td>
+                    <td>aglozman1r@storify.com</td>
+                    <td>Pendawanbaru</td>
+                    <td>08/25/2021</td>
+                    <td>$10745.32</td>
+                    <td>27</td>
+                    <td>3 Years</td>
+                    <td>APPLIED</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Analyst Programmer</td>
+                    <td>bskirving24@cbsnews.com</td>
+                    <td>Balky</td>
+                    <td>09/27/2021</td>
+                    <td>$24733.28</td>
+                    <td>39</td>
+                    <td>1 Year</td>
+                    <td>RESIGNED</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>VP Quality Control</td>
+                    <td>bcoulman1@yolasite.com</td>
+                    <td>Hinigaran</td>
+                    <td>05/20/2021</td>
+                    <td>$13633.69</td>
+                    <td>63</td>
+                    <td>3 Years</td>
+                    <td>PROFESSIONAL</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>VP Quality Control</td>
+                    <td>blongland12@gizmodo.com</td>
+                    <td>Damu</td>
+                    <td>07/18/2021</td>
+                    <td>$22794.60</td>
+                    <td>62</td>
+                    <td>2 Years</td>
+                    <td>PROFESSIONAL</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Project Manager</td>
+                    <td>sandra.bullock@movie.com</td>
+                    <td>Los Angeles</td>
+                    <td>03/15/2022</td>
+                    <td>$50000.00</td>
+                    <td>55</td>
+                    <td>20 Years</td>
+                    <td>PROFESSIONAL</td>
+                    <td></td>
+                </tr>
+                <!-- Add more rows as needed -->
             </tbody>
         </table>
         <div class="pagination">
@@ -85,23 +158,22 @@
         });
 
         function fetchData() {
-            data = [
-                { position: 'Safety Technician', email: 'amoakler8@shareasale.com', city: 'Mogilany', date: '12/29/2021', salary: '$11677.32', age: 39, experience: '9 Years', status: 'APPLIED', actions: '' },
-                { position: 'Administrative Assistant', email: 'aharvatt11@addtoany.com', city: 'Ulundi', date: '11/04/2021', salary: '$21782.82', age: 41, experience: '1 Year', status: 'CURRENT', actions: '' },
-                { position: 'Staff Accountant', email: 'aglozman1r@storify.com', city: 'Pendawanbaru', date: '08/25/2021', salary: '$10745.32', age: 27, experience: '3 Years', status: 'APPLIED', actions: '' },
-                { position: 'Analyst Programmer', email: 'bskirving24@cbsnews.com', city: 'Balky', date: '09/27/2021', salary: '$24733.28', age: 39, experience: '1 Year', status: 'RESIGNED', actions: '' },
-                { position: 'VP Quality Control', email: 'bcoulman1@yolasite.com', city: 'Hinigaran', date: '05/20/2021', salary: '$13633.69', age: 63, experience: '3 Years', status: 'PROFESSIONAL', actions: '' },
-                { position: 'VP Quality Control', email: 'blongland12@gizmodo.com', city: 'Damu', date: '07/18/2021', salary: '$22794.60', age: 62, experience: '2 Years', status: 'PROFESSIONAL', actions: '' },
-                { position: 'Project Manager', email: 'sandra.bullock@movie.com', city: 'Los Angeles', date: '03/15/2022', salary: '$50000.00', age: 55, experience: '20 Years', status: 'PROFESSIONAL', actions: '' },
-                { position: 'Software Developer', email: 'john.doe@developer.com', city: 'San Francisco', date: '02/12/2022', salary: '$120000.00', age: 30, experience: '8 Years', status: 'CURRENT', actions: '' },
-                { position: 'Data Analyst', email: 'jane.doe@data.com', city: 'New York', date: '01/10/2022', salary: '$90000.00', age: 28, experience: '6 Years', status: 'CURRENT', actions: '' },
-                { position: 'HR Manager', email: 'hr.manager@company.com', city: 'Chicago', date: '04/05/2022', salary: '$80000.00', age: 45, experience: '15 Years', status: 'APPLIED', actions: '' },
-                { position: 'Marketing Specialist', email: 'marketing@company.com', city: 'Seattle', date: '05/07/2022', salary: '$75000.00', age: 35, experience: '10 Years', status: 'CURRENT', actions: '' },
-                { position: 'Sales Representative', email: 'sales.rep@company.com', city: 'Austin', date: '06/09/2022', salary: '$65000.00', age: 32, experience: '7 Years', status: 'CURRENT', actions: '' },
-                { position: 'Graphic Designer', email: 'designer@company.com', city: 'Denver', date: '07/11/2022', salary: '$60000.00', age: 29, experience: '5 Years', status: 'APPLIED', actions: '' },
-                { position: 'Content Writer', email: 'writer@company.com', city: 'Boston', date: '08/13/2022', salary: '$55000.00', age: 27, experience: '4 Years', status: 'CURRENT', actions: '' },
-                { position: 'Finance Manager', email: 'finance@company.com', city: 'Dallas', date: '09/15/2022', salary: '$110000.00', age: 50, experience: '18 Years', status: 'PROFESSIONAL', actions: '' }
-            ];
+            const tableBody = document.getElementById('tableBody');
+            const rows = tableBody.getElementsByTagName('tr');
+            data = Array.from(rows).map(row => {
+                const cells = row.getElementsByTagName('td');
+                return {
+                    position: cells[0].textContent,
+                    email: cells[1].textContent,
+                    city: cells[2].textContent,
+                    date: cells[3].textContent,
+                    salary: cells[4].textContent,
+                    age: parseInt(cells[5].textContent, 10),
+                    experience: cells[6].textContent,
+                    status: cells[7].textContent,
+                    actions: cells[8].textContent
+                };
+            });
             filteredData = data;
             renderTable();
         }
