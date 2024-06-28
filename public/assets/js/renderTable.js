@@ -58,38 +58,14 @@ function renderTable() {
         const tr = document.createElement('tr');
         for (const key in row) {
             const td = document.createElement('td');
-            td.innerHTML = row[key];
+            td.textContent = row[key];
             tr.appendChild(td);
         }
-
-        // Add event listeners for links and forms within the row
-        tr.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', handleLinkClick);
-        });
-
-        tr.querySelectorAll('form').forEach(form => {
-            form.addEventListener('submit', handleFormSubmit);
-        });
-
         tableBody.appendChild(tr);
     });
 
     document.getElementById('pageIndicator').textContent = currentPage;
     updateEntryInfo();
-}
-
-function handleLinkClick(event) {
-    event.preventDefault();
-    const url = event.target.href;
-    console.log('Link clicked:', url);
-    // Add your link handling logic here
-}
-
-function handleFormSubmit(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    console.log('Form submitted:', Object.fromEntries(formData));
-    // Add your form submission handling logic here
 }
 
 function searchTable() {
