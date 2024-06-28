@@ -5,34 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scrollable Table</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
         th {
             cursor: pointer;
             position: relative;
@@ -45,30 +17,7 @@
         .sort-arrow span {
             color: gray;
             font-size: 12px;
-        }
-        th:hover {
-            background-color: #f1f1f1;
-        }
-        tbody tr:hover {
-            background-color: #f1f1f1;
-        }
-        .pagination {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .pagination button {
-            padding: 10px 20px;
-            margin: 0 5px;
             cursor: pointer;
-        }
-        #searchInput {
-            margin-bottom: 10px;
-        }
-        .rows-per-page {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
         }
     </style>
 </head>
@@ -90,15 +39,15 @@
         <table id="dataTable">
             <thead>
                 <tr>
-                    <th data-column="position">POSITION <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
-                    <th data-column="email">EMAIL <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
-                    <th data-column="city">CITY <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
-                    <th data-column="date">DATE <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
-                    <th data-column="salary">SALARY <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
-                    <th data-column="age">AGE <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
-                    <th data-column="experience">EXPERIENCE <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
-                    <th data-column="status">STATUS <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
-                    <th data-column="actions">ACTIONS <div class="sort-arrow"><span>&#9650;</span><span>&#9660;</span></div></th>
+                    <th data-column="position">POSITION <div class="sort-arrow"><span class="up-arrow">&#9650;</span><span class="down-arrow">&#9660;</span></div></th>
+                    <th data-column="email">EMAIL <div class="sort-arrow"><span class="up-arrow">&#9650;</span><span class="down-arrow">&#9660;</span></div></th>
+                    <th data-column="city">CITY <div class="sort-arrow"><span class="up-arrow">&#9650;</span><span class="down-arrow">&#9660;</span></div></th>
+                    <th data-column="date">DATE <div class="sort-arrow"><span class="up-arrow">&#9650;</span><span class="down-arrow">&#9660;</span></div></th>
+                    <th data-column="salary">SALARY <div class="sort-arrow"><span class="up-arrow">&#9650;</span><span class="down-arrow">&#9660;</span></div></th>
+                    <th data-column="age">AGE <div class="sort-arrow"><span class="up-arrow">&#9650;</span><span class="down-arrow">&#9660;</span></div></th>
+                    <th data-column="experience">EXPERIENCE <div class="sort-arrow"><span class="up-arrow">&#9650;</span><span class="down-arrow">&#9660;</span></div></th>
+                    <th data-column="status">STATUS <div class="sort-arrow"><span class="up-arrow">&#9650;</span><span class="down-arrow">&#9660;</span></div></th>
+                    <th data-column="actions">ACTIONS <div class="sort-arrow"><span class="up-arrow">&#9650;</span><span class="down-arrow">&#9660;</span></div></th>
                 </tr>
             </thead>
             <tbody id="tableBody">
@@ -126,30 +75,32 @@
             document.getElementById('nextPage').addEventListener('click', () => changePage(1));
             document.getElementById('rowsPerPageSelect').addEventListener('change', changeRowsPerPage);
 
-            document.querySelectorAll('th').forEach(th => {
-                th.addEventListener('click', () => sortTable(th.dataset.column));
+            document.querySelectorAll('.up-arrow').forEach(arrow => {
+                arrow.addEventListener('click', () => sortTable(arrow.parentElement.parentElement.dataset.column, 'asc'));
+            });
+
+            document.querySelectorAll('.down-arrow').forEach(arrow => {
+                arrow.addEventListener('click', () => sortTable(arrow.parentElement.parentElement.dataset.column, 'desc'));
             });
         });
 
         function fetchData() {
-            // Replace this with an actual API call in a real-world scenario
             data = [
-                // Sample data structure
-                { position: 'Safety Technician', email: 'amoakler8@shareasale.com', city: 'Mogilany', date: '12/29/2021', salary: '$11677.32', age: 39, experience: '9 Years', status: 'APPLIED', actions: '' },
-                { position: 'Administrative Assistant', email: 'aharvatt11@addtoany.com', city: 'Ulundi', date: '11/04/2021', salary: '$21782.82', age: 41, experience: '1 Year', status: 'CURRENT', actions: '' },
-                { position: 'Safety Technician', email: 'amoakler8@shareasale.com', city: 'Mogilany', date: '12/29/2021', salary: '$11677.32', age: 39, experience: '9 Years', status: 'APPLIED', actions: '' },
-                { position: 'Administrative Assistant', email: 'aharvatt11@addtoany.com', city: 'Ulundi', date: '11/04/2021', salary: '$21782.82', age: 41, experience: '1 Year', status: 'CURRENT', actions: '' },
-                { position: 'Safety Technician', email: 'amoakler8@shareasale.com', city: 'Mogilany', date: '12/29/2021', salary: '$11677.32', age: 39, experience: '9 Years', status: 'APPLIED', actions: '' },
-                { position: 'Administrative Assistant', email: 'aharvatt11@addtoany.com', city: 'Ulundi', date: '11/04/2021', salary: '$21782.82', age: 41, experience: '1 Year', status: 'CURRENT', actions: '' },
-                { position: 'Safety Technician', email: 'amoakler8@shareasale.com', city: 'Mogilany', date: '12/29/2021', salary: '$11677.32', age: 39, experience: '9 Years', status: 'APPLIED', actions: '' },
-                { position: 'Administrative Assistant', email: 'aharvatt11@addtoany.com', city: 'Ulundi', date: '11/04/2021', salary: '$21782.82', age: 41, experience: '1 Year', status: 'CURRENT', actions: '' },
                 { position: 'Safety Technician', email: 'amoakler8@shareasale.com', city: 'Mogilany', date: '12/29/2021', salary: '$11677.32', age: 39, experience: '9 Years', status: 'APPLIED', actions: '' },
                 { position: 'Administrative Assistant', email: 'aharvatt11@addtoany.com', city: 'Ulundi', date: '11/04/2021', salary: '$21782.82', age: 41, experience: '1 Year', status: 'CURRENT', actions: '' },
                 { position: 'Staff Accountant', email: 'aglozman1r@storify.com', city: 'Pendawanbaru', date: '08/25/2021', salary: '$10745.32', age: 27, experience: '3 Years', status: 'APPLIED', actions: '' },
                 { position: 'Analyst Programmer', email: 'bskirving24@cbsnews.com', city: 'Balky', date: '09/27/2021', salary: '$24733.28', age: 39, experience: '1 Year', status: 'RESIGNED', actions: '' },
                 { position: 'VP Quality Control', email: 'bcoulman1@yolasite.com', city: 'Hinigaran', date: '05/20/2021', salary: '$13633.69', age: 63, experience: '3 Years', status: 'PROFESSIONAL', actions: '' },
-                { position: 'VP Quality Control', email: 'blongland12@gizmodo.com', city: 'Damu', date: '07/18/2021', salary: '$22794.60', age: 62, experience: '2 Years', status: 'PROFESSIONAL', actions: '' }
-                // Add more sample data here
+                { position: 'VP Quality Control', email: 'blongland12@gizmodo.com', city: 'Damu', date: '07/18/2021', salary: '$22794.60', age: 62, experience: '2 Years', status: 'PROFESSIONAL', actions: '' },
+                { position: 'Project Manager', email: 'sandra.bullock@movie.com', city: 'Los Angeles', date: '03/15/2022', salary: '$50000.00', age: 55, experience: '20 Years', status: 'PROFESSIONAL', actions: '' },
+                { position: 'Software Developer', email: 'john.doe@developer.com', city: 'San Francisco', date: '02/12/2022', salary: '$120000.00', age: 30, experience: '8 Years', status: 'CURRENT', actions: '' },
+                { position: 'Data Analyst', email: 'jane.doe@data.com', city: 'New York', date: '01/10/2022', salary: '$90000.00', age: 28, experience: '6 Years', status: 'CURRENT', actions: '' },
+                { position: 'HR Manager', email: 'hr.manager@company.com', city: 'Chicago', date: '04/05/2022', salary: '$80000.00', age: 45, experience: '15 Years', status: 'APPLIED', actions: '' },
+                { position: 'Marketing Specialist', email: 'marketing@company.com', city: 'Seattle', date: '05/07/2022', salary: '$75000.00', age: 35, experience: '10 Years', status: 'CURRENT', actions: '' },
+                { position: 'Sales Representative', email: 'sales.rep@company.com', city: 'Austin', date: '06/09/2022', salary: '$65000.00', age: 32, experience: '7 Years', status: 'CURRENT', actions: '' },
+                { position: 'Graphic Designer', email: 'designer@company.com', city: 'Denver', date: '07/11/2022', salary: '$60000.00', age: 29, experience: '5 Years', status: 'APPLIED', actions: '' },
+                { position: 'Content Writer', email: 'writer@company.com', city: 'Boston', date: '08/13/2022', salary: '$55000.00', age: 27, experience: '4 Years', status: 'CURRENT', actions: '' },
+                { position: 'Finance Manager', email: 'finance@company.com', city: 'Dallas', date: '09/15/2022', salary: '$110000.00', age: 50, experience: '18 Years', status: 'PROFESSIONAL', actions: '' }
             ];
             filteredData = data;
             renderTable();
@@ -199,13 +150,9 @@
             renderTable();
         }
 
-        function sortTable(column) {
-            if (currentSortColumn === column) {
-                currentSortDirection = currentSortDirection === 'asc' ? 'desc' : 'asc';
-            } else {
-                currentSortColumn = column;
-                currentSortDirection = 'asc';
-            }
+        function sortTable(column, direction) {
+            currentSortColumn = column;
+            currentSortDirection = direction;
 
             filteredData.sort((a, b) => {
                 const valueA = a[column];

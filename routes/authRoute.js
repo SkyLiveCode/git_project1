@@ -23,5 +23,13 @@ router.get('/reset-password-direct', (req, res) => {
 });
 router.post('/reset-password-direct', authController.resetPasswordDirect);
 
+
+
+// กำหนดเส้นทาง GET สำหรับหน้า tableForAdapt เดลเอาออก
+router.get('/tableForAdapt', (req, res) => {
+  res.render('tableForAdapt');
+});
+
+
 // ส่งออกโมดูล router เพื่อให้สามารถใช้งานในไฟล์อื่นได้
 module.exports = router;
