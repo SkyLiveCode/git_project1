@@ -214,26 +214,34 @@
                   </div>
                   <!-- / เพิ่มเครื่องมือ -->
                   
+                  <!-- Search Table -->
                   <div class="row">
                     <div class="col-12 mb-4">
                       <div class="card">
-                        <h5 class="card-header">รายการข้อมูลเครื่องมือ<%= hospital.hospital_name %></h5>
+                        <div class="card-header">
+                          <h5 class="card-title">รายการข้อมูลเครื่องมือ<%= hospital.hospital_name %></h5>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search table...">
+                          </div>
+                        </div>
                         <div class="table-responsive text-nowrap">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th style="text-transform: none; font-size: 15px;">ID</th>
+                                        <th style="text-transform: none; font-size: 15px;">Date</th>
                                         <th style="text-transform: none; font-size: 15px;">ชื่ออุปกรณ์</th>
                                         <th style="text-transform: none; font-size: 15px;">ID. No.</th>
                                         <th style="text-transform: none; font-size: 15px;">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody class="table-border-bottom-0">
+                                <tbody class="table-border-bottom-0" id="tableBody">
                                     <% medicalEquipments.forEach(equipment => { %>
                                     <tr>
                                         <!-- ฟอร์มสำหรับแก้ไขข้อมูลโรงพยาบาล -->
                                         <form action="/api/updateMedicalEquipment" method="post" class="edit-form">
-                                            <td><%= equipment.id %></td>  
+                                            <td><%= equipment.id %></td>
+                                            <td><%= equipment.created_at_formatted %></td>  
                                             <td>
                                                 <span><%= equipment.equipment_name %></span>
                                                 <input class="form-control" type="text" name="equipment_name" value="<%= equipment.equipment_name %>" style="display:none;">
@@ -269,7 +277,8 @@
                         </div>
                       </div>
                     </div>
-                  </div>                                 
+                  </div>
+                  <!--/ Search Table -->                                 
                 </div>
               </div>
             </div>
@@ -347,6 +356,28 @@
                     form.appendChild(idInput);
                     document.body.appendChild(form);
                     form.submit();
+                });
+            });
+
+                        // การทำงานของฟังก์ชันการค้นหา
+                        const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('keyup', function () {
+                const filter = searchInput.value.toLowerCase();
+                const rows = document.querySelectorAll('#tableBody tr');
+
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    let matches = false;
+                    cells.forEach(cell => {
+                        if (cell.textContent.toLowerCase().includes(filter)) {
+                            matches = true;
+                        }
+                    });
+                    if (matches) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
                 });
             });
         });

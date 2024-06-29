@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-
 <!-- =========================================================
 * Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
 ==============================================================
-
 * Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
 * Created by: ThemeSelection
 * License: You must have a valid license purchased in order to legally use the theme for your project.
@@ -312,66 +310,71 @@
                     </div>
                   </div>
                   <!-- / form-->
-                  <!-- Hoverable Table rows -->
+                  <!-- Search Table -->
                   <div class="card mb-4">
+                    <div class="card-header">
+                      <h5 class="card-title">รายการข้อมูลโรงพยาบาล</h5>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Search table...">
+                      </div>
+                    </div>
                     <div class="card">
-                      <h5 class="card-header">รายการข้อมูลโรงพยาบาล</h5>
-                        <div class="table-responsive text-nowrap">
-                            <table class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th style="text-transform: none; font-size: 15px;">ID</th>
-                                        <th style="text-transform: none; font-size: 15px;">Hospital Name</th>
-                                        <th style="text-transform: none; font-size: 15px;">Province</th>
-                                        <th style="text-transform: none; font-size: 15px;">Email</th>
-                                        <th style="text-transform: none; font-size: 15px;">Phone</th>
-                                        <th style="text-transform: none; font-size: 15px;">Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-border-bottom-0">
-                                    <% hospitals.forEach(hospital => { %>
-                                    <tr>
-                                        <!-- ฟอร์มสำหรับแก้ไขข้อมูลโรงพยาบาล -->
-                                        <form action="/api/updateHospital" method="post" class="edit-form">
-                                            <td><%= hospital.id %></td>
-                                            <td class="hospital-name">
-                                                <span><%= hospital.hospital_name %></span>
-                                                <input class="form-control" type="text" name="hospital_name" value="<%= hospital.hospital_name %>" style="display:none;">
-                                            </td>
-                                            <td class="hospital-province">
-                                                <span><%= hospital.province %></span>
-                                                <input class="form-control" type="text" name="province" value="<%= hospital.province %>" style="display:none;">
-                                            </td>
-                                            <td class="hospital-email">
-                                                <span><%= hospital.email %></span>
-                                                <input class="form-control" type="text" name="email" value="<%= hospital.email %>" style="display:none;">
-                                            </td>
-                                            <td class="hospital-phone">
-                                                <span><%= hospital.phone %></span>
-                                                <input class="form-control" type="text" name="phone" value="<%= hospital.phone %>" style="display:none;">
-                                            </td>
-                                            <td>
-                                              <div class="d-inline-block">
-                                                <a href="javascript:;" class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></a>
-                                                <div class="dropdown-menu dropdown-menu-end m-0">
-                                                  <a class="dropdown-item edit-btn" href="#"><i class="bx bx-edit-alt me-1" style="transform: translateY(-1px);"></i> แก้ไข</a>
-                                                  <a class="dropdown-item confirm-edit-btn" href="#" style="display:none;"><i class="bx bx-edit-alt me-1" style="transform: translateY(-1px);"></i> ยืนยัน</a>
-                                                  <div class="dropdown-divider"></div>
-                                                  <a class="dropdown-item text-danger delete-btn" href="javascript:void(0);" data-action="/api/deleteHospital" data-method="post"><i class="bx bx-trash me-1" style="transform: translateY(-2px);"></i> ลบ</a>
-                                                </div>
-                                              </div>
-                                                <a href="/html/pages-medical_equipment_by_id/<%= hospital.id %>" class="btn btn-sm btn-icon item-edit"><i class="bx bxs-edit"></i></a>
-                                            </td>                                          
-                                            <input type="hidden" name="id" value="<%= hospital.id %>">
-                                        </form>
-                                    </tr>
-                                    <% }) %>
-                                </tbody>
-                            </table>
-                        </div>
+                      <div class="table-responsive text-nowrap">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr>
+                              <th style="text-transform: none; font-size: 15px;">ID</th>
+                              <th style="text-transform: none; font-size: 15px;">Hospital Name</th>
+                              <th style="text-transform: none; font-size: 15px;">Province</th>
+                              <th style="text-transform: none; font-size: 15px;">Email</th>
+                              <th style="text-transform: none; font-size: 15px;">Phone</th>
+                              <th style="text-transform: none; font-size: 15px;">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody class="table-border-bottom-0" id="tableBody">
+                            <% hospitals.forEach(hospital => { %>
+                            <tr>
+                              <!-- ฟอร์มสำหรับแก้ไขข้อมูลโรงพยาบาล -->
+                              <form action="/api/updateHospital" method="post" class="edit-form">
+                                <td><%= hospital.id %></td>
+                                <td class="hospital-name">
+                                  <span><%= hospital.hospital_name %></span>
+                                  <input class="form-control" type="text" name="hospital_name" value="<%= hospital.hospital_name %>" style="display:none;">
+                                </td>
+                                <td class="hospital-province">
+                                  <span><%= hospital.province %></span>
+                                  <input class="form-control" type="text" name="province" value="<%= hospital.province %>" style="display:none;">
+                                </td>
+                                <td class="hospital-email">
+                                  <span><%= hospital.email %></span>
+                                  <input class="form-control" type="text" name="email" value="<%= hospital.email %>" style="display:none;">
+                                </td>
+                                <td class="hospital-phone">
+                                  <span><%= hospital.phone %></span>
+                                  <input class="form-control" type="text" name="phone" value="<%= hospital.phone %>" style="display:none;">
+                                </td>
+                                <td>
+                                  <div class="d-inline-block">
+                                    <a href="javascript:;" class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-end m-0">
+                                      <a class="dropdown-item edit-btn" href="#"><i class="bx bx-edit-alt me-1" style="transform: translateY(-1px);"></i> แก้ไข</a>
+                                      <a class="dropdown-item confirm-edit-btn" href="#" style="display:none;"><i class="bx bx-edit-alt me-1" style="transform: translateY(-1px);"></i> ยืนยัน</a>
+                                      <div class="dropdown-divider"></div>
+                                      <a class="dropdown-item text-danger delete-btn" href="javascript:void(0);" data-action="/api/deleteHospital" data-method="post"><i class="bx bx-trash me-1" style="transform: translateY(-2px);"></i> ลบ</a>
+                                    </div>
+                                  </div>
+                                  <a href="/html/pages-medical_equipment_by_id/<%= hospital.id %>" class="btn btn-sm btn-icon item-edit"><i class="bx bxs-edit"></i></a>
+                                </td>                                          
+                                <input type="hidden" name="id" value="<%= hospital.id %>">
+                              </form>
+                            </tr>
+                            <% }) %>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
-                  <!--/ Hoverable Table rows -->            
+                  <!--/ Search Table -->            
                   <!-- / Content -->
                 </div>
               </div>
@@ -498,6 +501,28 @@
                     form.appendChild(idInput);
                     document.body.appendChild(form);
                     form.submit();
+                });
+            });
+
+            // การทำงานของฟังก์ชันการค้นหา
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('keyup', function () {
+                const filter = searchInput.value.toLowerCase();
+                const rows = document.querySelectorAll('#tableBody tr');
+
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td');
+                    let matches = false;
+                    cells.forEach(cell => {
+                        if (cell.textContent.toLowerCase().includes(filter)) {
+                            matches = true;
+                        }
+                    });
+                    if (matches) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
                 });
             });
         });
