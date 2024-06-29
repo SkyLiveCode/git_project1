@@ -1,107 +1,364 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Equipment Information</title>
-</head>
-<body>
-    <h1>ข้อมูลอุปกรณ์ทางการแพทย์</h1>
-    <!-- ฟอร์มสำหรับเพิ่มอุปกรณ์ทางการแพทย์ -->
-    <form action="/addMedicalEquipment" method="post">
-        <label for="id_category">ชื่ออุปกรณ์:</label>
-        <select id="id_category" name="id_category" required>
-            <% categories.forEach(category => { %>
-                <option value="<%= category.id %>"><%= category.id %>. <%= category.categorie_name %> (<%= category.short_name %>)</option>
-            <% }) %>
-        </select>
-        <label for="id_no">ID. No.:</label>
-        <input type="text" id="id_no" name="id_no" required>
-        <input type="hidden" name="id_hospital" value="<%= id_hospital %>">
-        <button type="submit">เพิ่มอุปกรณ์</button>
-    </form>
-    <hr>
-    <!-- ตารางแสดงข้อมูลอุปกรณ์ทางการแพทย์ -->
-    <table>
-        <thead>
-            <tr>
-                <th>รหัส</th>
-                <th>ชื่ออุปกรณ์</th>
-                <th>ID. No.</th>
-                <th>ลบ</th>
-                <th>แก้ไข</th>
-                <th>calculate</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% medicalEquipments.forEach(equipment => { %>
-            <tr>
-                <form action="/updateMedicalEquipment" method="post" class="edit-form">
-                    <td><%= equipment.id %></td>                    
-                    <td class="equipment-name">
-                        <span><%= equipment.equipment_name %></span>
-                        <input type="text" name="equipment_name" value="<%= equipment.equipment_name %>" style="display:none;">
-                    </td>                    
-                    <td class="equipment-id_no">
-                        <span><%= equipment['ID. No.'] %></span>
-                        <input type="text" name="id_no" value="<%= equipment['ID. No.'] %>" style="display:none;">
-                    </td>                    
-                    <td>
-                        <button type="button" class="delete-btn" data-action="/deleteMedicalEquipment" data-method="post">ลบ</button>
-                    </td>
-                    <td>
-                        <button type="button" class="edit-btn">แก้ไข</button>
-                        <button type="submit" class="confirm-edit-btn" style="display:none;">ยืนยัน</button>
-                    </td>
-                    <input type="hidden" name="id" value="<%= equipment.id %>">
-                    <input type="hidden" name="id_hospital" value="<%= equipment.id_hospital %>">
-                    <td>
-                        <% if (equipment.id_categories == 1) { %>
-                            <a href="/html/pages-calculates/pages-calculate1/<%= equipment.id %>/<%= equipment.id_hospital %>/<%= equipment.id_categories %>">View</a>
-                        <% } else if (equipment.id_categories == 2) { %>
-                            <a href="/html/pages-calculates/pages-calculate2/<%= equipment.id %>/<%= equipment.id_hospital %>/<%= equipment.id_categories %>">View</a>
-                        <% } %>
-                    </td>
-                </form>
-            </tr>
-            <% }) %>
-        </tbody>
-    </table>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>AT PREVENT</title>
+    <meta name="description" content="" />
+    <link rel="icon" type="image/x-icon" href="..\assets\img\icons\brands\logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="../assets/css/demo.css" />
+    <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <script src="../assets/vendor/js/helpers.js"></script>
+    <script src="../assets/js/config.js"></script>
+  </head>
+  <body>
+    <div class="layout-wrapper layout-content-navbar">
+      <div class="layout-container">
+        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+          <div class="app-brand demo">
+            <a href="/" class="app-brand-link">
+              <span class="app-brand-logo demo">
+              <img src="..\assets\img\icons\brands\logo.png" width="45" height="45" alt="Brand Logo">
+              </span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">AT PREVENT</span>
+            </a>
+            <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+              <i class="bx bx-chevron-left bx-sm align-middle"></i>
+            </a>
+          </div>
+          <div class="menu-inner-shadow"></div>
+          <ul class="menu-inner py-1">
+            <li class="menu-item">
+              <a href="/" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Dashboard</div>
+              </a>
+            </li>
+            <li class="menu-header small text-uppercase">
+              <span class="menu-header-text">Forms</span>
+            </li>
+            <li class="menu-item active open">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Account Settings">Management</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="/html/pages-hospital_information" class="menu-link">
+                    <div data-i18n="Account">Hospital information</div>
+                  </a>
+                </li>
+                <li class="menu-item active">
+                  <a href="javascript:void(0);" class="menu-link">
+                    <div data-i18n="Notifications">Medical equipment</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
+            <li class="menu-item">
+              <a href="https://www.facebook.com/profile.php?id=100029998816317" target="_blank" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-support"></i>
+                <div data-i18n="Support">Support</div>
+              </a>
+            </li>
+          </ul>
+        </aside>
+        <div class="layout-page">
+          <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
+            <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
+              <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
+                <i class="bx bx-menu bx-sm"></i>
+              </a>
+            </div>
+            <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+              <div class="navbar-nav align-items-center">
+                <div class="nav-item d-flex align-items-center">
+                  <i class="bx bx-search fs-4 lh-0"></i>
+                  <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..." />
+                </div>
+              </div>
+              <ul class="navbar-nav flex-row align-items-center ms-auto">
+                <li class="nav-item lh-1 me-3">
+                  <a><%= user.accounts %> Account</a>
+                </li>
+                <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                  <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+                    <div class="avatar avatar-online">
+                      <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                    </div>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <div class="d-flex">
+                          <div class="flex-shrink-0 me-3">
+                            <div class="avatar avatar-online">
+                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                            </div>
+                          </div>
+                          <div class="flex-grow-1">
+                            <span class="fw-semibold d-block"><%= user.name %></span>
+                            <small class="text-muted"><%= user.accounts %></small>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-user me-2"></i>
+                        <span class="align-middle">My Profile</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="bx bx-cog me-2"></i>
+                        <span class="align-middle">Settings</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <span class="d-flex align-items-center align-middle">
+                          <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
+                          <span class="flex-grow-1 align-middle">Billing</span>
+                          <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
+                        </span>
+                      </a>
+                    </li>
+                    <li>
+                      <div class="dropdown-divider"></div>
+                    </li>
+                    <li>
+                    <form action="/api/logout" method="POST" style="display: inline;">
+                        <button type="submit" class="dropdown-item" style="border: none; background: none; cursor: pointer;">
+                        <i class="bx bx-power-off me-2"></i>
+                        <span class="align-middle">Log Out</span>
+                        </button>
+                    </form>
+                    </li>     
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <div class="content-wrapper">
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Hospital information /</span> Medical equipment </h4>
+              <div class="row">
+                <div class="col-md-12">
+                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                    <li class="nav-item">
+                      <a class="nav-link" href="/html/pages-hospital_information"><i class="bx bx-buildings"></i> Hospital information</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bxs-vial" style="position: relative; top: -1px;"></i> Medical equipment</a>
+                    </li>
+                  </ul>
+                  
+                  <!-- เพิ่มเครื่องมือ -->
+                  <div class="card mb-4 accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                      <button
+                        type="button"
+                        class="accordion-button collapsed"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#accordionOne"
+                        aria-expanded="false"
+                        aria-controls="accordionOne"
+                      >
+                        <h5 class="m-2">เพิ่มข้อมูลเครื่องมือ<%= hospital.hospital_name %></h5>
+                      </button>
+                    </h2>
+                    <div
+                      id="accordionOne"
+                      class="accordion-collapse collapse"
+                      aria-labelledby="headingOne"
+                      data-bs-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <div class="m-2">
+                          <form action="/api/addMedicalEquipment" method="post">
+                            <div class="row gx-3 gy-2 align-items-center">
+                              <div class="col-md-4">
+                                <label class="form-label" for="selectTypeOpt">EQUIPMENT</label>
+                                <select id="selectTypeOpt" class="form-select color-dropdown" name="equipment" required>
+                                  <option value="" disabled selected>กรุณาเลือกรายการ</option>
+                                    <% categories.forEach(category => { %>
+                                        <option value="<%= category.id %>"><%= category.id %>. <%= category.categorie_name %> (<%= category.short_name %>)</option>
+                                    <% }) %>
+                                </select>
+                              </div>
+                              <div class="col-md-4">
+                                <label class="form-label" for="id_no">ID. NO.</label>
+                                <input type="text" class="form-control" id="id_no" name="id_no" placeholder="ID" required>
+                              </div>
+                              <div class="col-md-3">
+                                <label class="form-label" for="showToastPlacement">&nbsp;</label>
+                                <button type="submit" class="btn btn-primary d-block">เพิ่มเครื่องมือ</button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- / เพิ่มเครื่องมือ -->
+                  
+                  <div class="row">
+                    <div class="col-12 mb-4">
+                      <div class="card">
+                        <h5 class="card-header">รายการข้อมูลเครื่องมือ<%= hospital.hospital_name %></h5>
+                        <div class="table-responsive text-nowrap">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>รหัส</th>
+                                        <th>ชื่ออุปกรณ์</th>
+                                        <th>ID. No.</th>
+                                        <th>Details</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-border-bottom-0">
+                                    <% medicalEquipments.forEach(equipment => { %>
+                                    <tr>
+                                        <!-- ฟอร์มสำหรับแก้ไขข้อมูลโรงพยาบาล -->
+                                        <form action="/api/updateMedicalEquipment" method="post" class="edit-form">
+                                            <td><%= equipment.id %></td>  
+                                            <td class="equipment-name">
+                                                <span><%= equipment.equipment_name %></span>
+                                                <input class="form-control" type="text" name="equipment_name" value="<%= equipment.equipment_name %>" style="display:none;">
+                                            </td>
+                                            <td class="equipment-id_no">
+                                                <span><%= equipment['ID. No.'] %></span>
+                                                <input class="form-control" type="text" name="id_no" value="<%= equipment['ID. No.'] %>" style="display:none;">
+                                            </td>
+                                            <td>
+                                                <% if (equipment.id_categories == 1) { %>
+                                                    <a class="btn btn-primary" href="/html/pages-calculates/pages-calculate1/<%= equipment.id %>/<%= equipment.id_hospital %>/<%= equipment.id_categories %>">รายละเอียด</a>
+                                                <% } else if (equipment.id_categories == 2) { %>
+                                                    <a class="btn btn-primary" href="/html/pages-calculates/pages-calculate2/<%= equipment.id %>/<%= equipment.id_hospital %>/<%= equipment.id_categories %>">รายละเอียด</a>
+                                                <% } %>
+                                            </td> 
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item edit-btn" href="#"><i class="bx bx-edit-alt me-1"></i> แก้ไข</a>
+                                                        <a class="dropdown-item confirm-edit-btn" href="#" style="display:none;"><i class="bx bx-edit-alt me-1"></i> ยืนยัน</a>
+                                                        <a class="dropdown-item delete-btn" href="javascript:void(0);" data-action="/api/deleteMedicalEquipment" data-method="post"><i class="bx bx-trash me-1"></i> Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>                                            
+                                            <input type="hidden" name="id" value="<%= hospital.id %>">
+                                        </form>
+                                    </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>                                 
+                </div>
+              </div>
+            </div>
+            <footer class="content-footer footer bg-footer-theme">
+              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
+                  ©
+                  <script>
+                    document.write(new Date().getFullYear());
+                  </script>
+                  , developed with
+                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">Phongsky R. Guy</a>
+                </div>
+              </div>
+            </footer>
+            <div class="content-backdrop fade"></div>
+          </div>
+        </div>
+      </div>
+      <div class="layout-overlay layout-menu-toggle"></div>
+    </div>
+    <script src="../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../assets/vendor/js/bootstrap.js"></script>
+    <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../assets/vendor/js/menu.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
     <script>
-        // การทำงานของปุ่มแก้ไข
-        document.querySelectorAll('.edit-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const row = button.closest('tr');
-                const nameSpan = row.querySelector('.equipment-name span');
-                const nameInput = row.querySelector('.equipment-name input');
-                const idNoSpan = row.querySelector('.equipment-id_no span');
-                const idNoInput = row.querySelector('.equipment-id_no input');
-                const confirmEditBtn = row.querySelector('.confirm-edit-btn');
-                nameSpan.style.display = 'none';
-                nameInput.style.display = 'block';
-                idNoSpan.style.display = 'none';
-                idNoInput.style.display = 'block';
-                confirmEditBtn.style.display = 'inline';
-                button.style.display = 'none';
-            });
-        });
+        document.addEventListener('DOMContentLoaded', function () {
+            // การทำงานของปุ่มแก้ไข
+            document.querySelectorAll('.edit-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const row = button.closest('tr');
+                    const nameSpan = row.querySelector('.equipment-name span');
+                    const nameInput = row.querySelector('.equipment-name input');
+                    const id_noSpan = row.querySelector('.equipment-id_no span');
+                    const id_noInput = row.querySelector('.equipment-id_no input');
+                    const confirmEditBtn = row.querySelector('.confirm-edit-btn');
 
-        // การทำงานของปุ่มลบ
-        document.querySelectorAll('.delete-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const row = button.closest('tr');
-                const form = document.createElement('form');
-                form.action = button.getAttribute('data-action');
-                form.method = button.getAttribute('data-method');
-                const idInput = document.createElement('input');
-                idInput.type = 'hidden';
-                idInput.name = 'id';
-                idInput.value = row.querySelector('input[name="id"]').value;
-                form.appendChild(idInput);
-                document.body.appendChild(form);
-                form.submit();
+                    nameSpan.style.display = 'none';
+                    nameInput.style.display = 'block';
+                    id_noSpan.style.display = 'none';
+                    id_noInput.style.display = 'block';
+                    confirmEditBtn.style.display = 'block';
+                    button.style.display = 'none';
+                });
+            });
+
+            // การทำงานของปุ่มยืนยันการแก้ไข
+            document.querySelectorAll('.confirm-edit-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const row = button.closest('tr');
+                    const nameSpan = row.querySelector('.equipment-name span');
+                    const nameInput = row.querySelector('.equipment-name input');
+                    const id_noSpan = row.querySelector('.equipment-id_no span');
+                    const id_noInput = row.querySelector('.equipment-id_no input');
+                    const editForm = row.querySelector('.edit-form');
+
+                    nameSpan.style.display = 'block';
+                    nameInput.style.display = 'none';
+                    id_noSpan.style.display = 'block';
+                    id_noInput.style.display = 'none';
+                    button.style.display = 'none';
+                    row.querySelector('.edit-btn').style.display = 'block';
+
+                    // Assuming you have some form submission logic here
+                    editForm.submit();
+                });
+            });
+
+            // การทำงานของปุ่มลบ
+            document.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const row = button.closest('tr');
+                    const form = document.createElement('form');
+                    form.action = button.getAttribute('data-action');
+                    form.method = button.getAttribute('data-method');
+                    const idInput = document.createElement('input');
+                    idInput.type = 'hidden';
+                    idInput.name = 'id';
+                    idInput.value = row.querySelector('input[name="id"]').value;
+                    form.appendChild(idInput);
+                    document.body.appendChild(form);
+                    form.submit();
+                });
             });
         });
-    </script>    
-</body>
+    </script>     
+  </body>
 </html>

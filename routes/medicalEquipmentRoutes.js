@@ -18,12 +18,12 @@ router.get('/html/pages-medical_equipment_by_id_hospital/:id_hospital', (req, re
 router.get('/html/pages-medical_equipment', medicalEquipmentController.renderMedicalEquipmentInformation);
 
 // เส้นทางเพื่อเพิ่ม medical equipment ใหม่
-router.post('/addMedicalEquipment', medicalEquipmentController.addMedicalEquipment);
+router.post('/api/addMedicalEquipment', medicalEquipmentController.addMedicalEquipment);
 
 // เส้นทางเพื่อลบ medical equipment
-router.post('/deleteMedicalEquipment', medicalEquipmentController.deleteMedicalEquipment);
+router.post('/api/deleteMedicalEquipment', medicalEquipmentController.deleteMedicalEquipment);
 
 // เส้นทางเพื่ออัปเดต medical equipment
-router.post('/updateMedicalEquipment', medicalEquipmentController.updateMedicalEquipment);
+router.post('/api/updateMedicalEquipment', medicalEquipmentController.updateMedicalEquipment);
 
 module.exports = router;
