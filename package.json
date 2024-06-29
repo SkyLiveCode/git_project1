@@ -12,6 +12,7 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bwip-js": "^4.4.0",
     "cookie-parser": "^1.4.6",
     "cookie-session": "^2.1.0",
     "dotenv": "^16.4.5",
@@ -23,7 +24,6 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pdf-lib": "^1.17.1",
-    "qrcode": "^1.5.3",
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
