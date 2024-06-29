@@ -13,7 +13,7 @@ exports.renderMedicalEquipmentInformation = async (req, res) => {
 
         // Format created_at dates
         medicalEquipments = medicalEquipments.map(equipment => {
-            equipment.created_at_formatted = format(new Date(equipment.created_at), 'd/M/yyyy HH:mm:ss (เวลาไทย)', { locale: th });
+            equipment.created_at_formatted = format(new Date(equipment.created_at), 'd/M/yyyy HH:mm', { locale: th });
             return equipment;
         });
 
