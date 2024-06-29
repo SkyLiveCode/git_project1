@@ -57,9 +57,9 @@
                     <input type="hidden" name="id_hospital" value="<%= equipment.id_hospital %>">
                     <td>
                         <% if (equipment.id_categories == 1) { %>
-                            <a href="/html/pages-calculates/pages-calculate1/<%= equipment.id %>/<%= equipment.id_hospital %>/<%= equipment.id_categories %>">Calculate</a>
+                            <a href="/html/pages-calculates/pages-calculate1/<%= equipment.id %>/<%= equipment.id_hospital %>/<%= equipment.id_categories %>">View</a>
                         <% } else if (equipment.id_categories == 2) { %>
-                            <a href="/html/pages-calculates/pages-calculate2/<%= equipment.id %>/<%= equipment.id_hospital %>/<%= equipment.id_categories %>">Calculate</a>
+                            <a href="/html/pages-calculates/pages-calculate2/<%= equipment.id %>/<%= equipment.id_hospital %>/<%= equipment.id_categories %>">View</a>
                         <% } %>
                     </td>
                 </form>

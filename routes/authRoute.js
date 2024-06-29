@@ -16,7 +16,7 @@ router.get('/register', (req, res) => {
     res.render('register');
   });
 // กำหนดเส้นทาง POST สำหรับการออกจากระบบ และเรียกใช้ฟังก์ชัน logout จาก authController
-router.post('/logout', authController.logout);
+router.post('/api/logout', authController.logout);
 // กำหนดเส้นทาง reset-password
 router.get('/reset-password-direct', (req, res) => {
   res.render('resetPasswordDirect');
