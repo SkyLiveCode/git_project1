@@ -44,8 +44,8 @@ exports.deleteMedicalEquipment = async (req, res) => {
 // ฟังก์ชันเพื่ออัปเดต medical equipment
 exports.updateMedicalEquipment = async (req, res) => {
     try {
-        const { id, equipment_name, id_no, id_hospital } = req.body;
-        await db.query('UPDATE equipment SET equipment_name = ?, `ID. No.` = ? WHERE id = ?', [equipment_name, id_no, id]);
+        const { id, id_no, id_hospital } = req.body;
+        await db.query('UPDATE equipment SET `ID. No.` = ? WHERE id = ?', [id_no, id]);
         res.redirect(`/html/pages-medical_equipment?id=${id_hospital}`);
     } catch (err) {
         console.error(err);

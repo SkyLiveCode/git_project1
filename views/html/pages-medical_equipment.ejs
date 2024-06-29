@@ -189,8 +189,8 @@
                           <form action="/api/addMedicalEquipment" method="post">
                             <div class="row gx-3 gy-2 align-items-center">
                               <div class="col-md-4">
-                                <label class="form-label" for="selectTypeOpt">EQUIPMENT</label>
-                                <select id="selectTypeOpt" class="form-select color-dropdown" name="equipment" required>
+                                <label class="form-label" for="id_category">EQUIPMENT</label>
+                                <select id="id_category" class="form-select color-dropdown" name="id_category" required>
                                   <option value="" disabled selected>กรุณาเลือกรายการ</option>
                                     <% categories.forEach(category => { %>
                                         <option value="<%= category.id %>"><%= category.id %>. <%= category.categorie_name %> (<%= category.short_name %>)</option>
@@ -200,6 +200,7 @@
                               <div class="col-md-4">
                                 <label class="form-label" for="id_no">ID. NO.</label>
                                 <input type="text" class="form-control" id="id_no" name="id_no" placeholder="ID" required>
+                                <input type="hidden" name="id_hospital" value="<%= id_hospital %>">
                               </div>
                               <div class="col-md-3">
                                 <label class="form-label" for="showToastPlacement">&nbsp;</label>
@@ -234,7 +235,7 @@
                                         <!-- ฟอร์มสำหรับแก้ไขข้อมูลโรงพยาบาล -->
                                         <form action="/api/updateMedicalEquipment" method="post" class="edit-form">
                                             <td><%= equipment.id %></td>  
-                                            <td class="equipment-name">
+                                            <td>
                                                 <span><%= equipment.equipment_name %></span>
                                                 <input class="form-control" type="text" name="equipment_name" value="<%= equipment.equipment_name %>" style="display:none;">
                                             </td>
@@ -261,7 +262,9 @@
                                                     </div>
                                                 </div>
                                             </td>                                            
-                                            <input type="hidden" name="id" value="<%= hospital.id %>">
+                                            <input type="hidden" name="id" value="<%= equipment.id %>">
+                                            <input type="hidden" name="id_hospital" value="<%= equipment.id_hospital %>">
+                                            <input type="hidden" name="id_hospital" value="<%= equipment.id_categories %>">
                                         </form>
                                     </tr>
                                     <% }) %>
@@ -305,14 +308,10 @@
             document.querySelectorAll('.edit-btn').forEach(button => {
                 button.addEventListener('click', function () {
                     const row = button.closest('tr');
-                    const nameSpan = row.querySelector('.equipment-name span');
-                    const nameInput = row.querySelector('.equipment-name input');
                     const id_noSpan = row.querySelector('.equipment-id_no span');
                     const id_noInput = row.querySelector('.equipment-id_no input');
                     const confirmEditBtn = row.querySelector('.confirm-edit-btn');
 
-                    nameSpan.style.display = 'none';
-                    nameInput.style.display = 'block';
                     id_noSpan.style.display = 'none';
                     id_noInput.style.display = 'block';
                     confirmEditBtn.style.display = 'block';
@@ -324,14 +323,10 @@
             document.querySelectorAll('.confirm-edit-btn').forEach(button => {
                 button.addEventListener('click', function () {
                     const row = button.closest('tr');
-                    const nameSpan = row.querySelector('.equipment-name span');
-                    const nameInput = row.querySelector('.equipment-name input');
                     const id_noSpan = row.querySelector('.equipment-id_no span');
                     const id_noInput = row.querySelector('.equipment-id_no input');
                     const editForm = row.querySelector('.edit-form');
 
-                    nameSpan.style.display = 'block';
-                    nameInput.style.display = 'none';
                     id_noSpan.style.display = 'block';
                     id_noInput.style.display = 'none';
                     button.style.display = 'none';
