@@ -325,7 +325,6 @@
                                         <th style="text-transform: none; font-size: 15px;">Province</th>
                                         <th style="text-transform: none; font-size: 15px;">Email</th>
                                         <th style="text-transform: none; font-size: 15px;">Phone</th>
-                                        <th style="text-transform: none; font-size: 15px;">Details</th>
                                         <th style="text-transform: none; font-size: 15px;">Actions</th>
                                     </tr>
                                 </thead>
@@ -352,20 +351,17 @@
                                                 <input class="form-control" type="text" name="phone" value="<%= hospital.phone %>" style="display:none;">
                                             </td>
                                             <td>
-                                                <a class="btn btn-primary" href="/html/pages-medical_equipment_by_id/<%= hospital.id %>">รายละเอียด</a>
-                                            </td>  
-                                            <td>
-                                                <div class="dropdown">
-                                                    <button type="button" class="btn btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                                    </button>
-                                                    <div class="dropdown-menu">
-                                                        <a class="dropdown-item edit-btn" href="#"><i class="bx bx-edit-alt me-1"></i> แก้ไข</a>
-                                                        <a class="dropdown-item confirm-edit-btn" href="#" style="display:none;"><i class="bx bx-edit-alt me-1"></i> ยืนยัน</a>
-                                                        <a class="dropdown-item delete-btn" href="javascript:void(0);" data-action="/api/deleteHospital" data-method="post"><i class="bx bx-trash me-1"></i> Delete</a>
-                                                    </div>
+                                              <div class="d-inline-block">
+                                                <a href="javascript:;" class="btn btn-sm btn-icon dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false"><i class="bx bx-dots-vertical-rounded"></i></a>
+                                                <div class="dropdown-menu dropdown-menu-end m-0">
+                                                  <a class="dropdown-item edit-btn" href="#"><i class="bx bx-edit-alt me-1" style="transform: translateY(-1px);"></i> แก้ไข</a>
+                                                  <a class="dropdown-item confirm-edit-btn" href="#" style="display:none;"><i class="bx bx-edit-alt me-1" style="transform: translateY(-1px);"></i> ยืนยัน</a>
+                                                  <div class="dropdown-divider"></div>
+                                                  <a class="dropdown-item text-danger delete-btn" href="javascript:void(0);" data-action="/api/deleteHospital" data-method="post"><i class="bx bx-trash me-1" style="transform: translateY(-2px);"></i> ลบ</a>
                                                 </div>
-                                            </td>                                            
+                                              </div>
+                                                <a href="/html/pages-medical_equipment_by_id/<%= hospital.id %>" class="btn btn-sm btn-icon item-edit"><i class="bx bxs-edit"></i></a>
+                                            </td>                                          
                                             <input type="hidden" name="id" value="<%= hospital.id %>">
                                         </form>
                                     </tr>
