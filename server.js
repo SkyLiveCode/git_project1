@@ -16,6 +16,7 @@ const authRoute = require('./routes/authRoute');            // นำเข้�
 const calculateRoute = require('./routes/calculateRoute');  // นำเข้า calculateRoute สำหรับการจัดการเส้นทางการคำนวณ
 const hospitalRoutes = require('./routes/hospitalRoutes'); // นำเข้าโมดูล hospitalRoutes
 const medicalEquipmentRoutes = require('./routes/medicalEquipmentRoutes'); // นำเข้าโมดูล medicalEquipmentRoutes
+const gateEquipmentRoutes = require('./routes/gateEquipmentRoutes'); // นำเข้าโมดูล gateEquipmentRoutes
 const pdfRoute = require('./routes/pdfRoute'); // นำเข้าโมดูล pdfRoute
 const QRLinearCodeRoute = require('./routes/QRLinearCodeRoute'); // นำเข้าโมดูล QRLinearCodeRoute
 
@@ -53,6 +54,7 @@ app.use('/', hospitalRoutes);
 app.use('/', medicalEquipmentRoutes);
 app.use('/', pdfRoute);
 app.use('/', QRLinearCodeRoute);
+app.use('/', gateEquipmentRoutes);
 
 // กำหนดเส้นทางและ middleware เพื่อป้องกันการเข้าถึงสำหรับหน้าแรก
 app.get('/', checkAuthenticated, (req, res) => {
