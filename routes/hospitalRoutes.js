@@ -6,12 +6,12 @@ const hospitalController = require('../controllers/hospitalController');
 router.get('/html/pages-hospital_information', hospitalController.renderHospitalInformation);
 
 // เส้นทางเพื่อเพิ่ม hospital ใหม่
-router.post('/addHospital', hospitalController.addHospital);
+router.post('/api/addHospital', hospitalController.addHospital);
 
 // เส้นทางเพื่อลบ hospital
-router.post('/deleteHospital', hospitalController.deleteHospital);
+router.post('/api/deleteHospital', hospitalController.deleteHospital);
 
 // เส้นทางเพื่ออัปเดต hospital
-router.post('/updateHospital', hospitalController.updateHospital);
+router.post('/api/updateHospital', hospitalController.updateHospital);
 
 module.exports = router;

@@ -16,8 +16,8 @@ exports.renderHospitalInformation = async (req, res) => {
 // ฟังก์ชันเพื่อเพิ่ม hospital ใหม่
 exports.addHospital = async (req, res) => {
     try {
-        const { hospital_name, province } = req.body;
-        await db.query('INSERT INTO hospital (hospital_name, province) VALUES (?, ?)', [hospital_name, province]);
+        const { hospital_name, province, email, phone } = req.body;
+        await db.query('INSERT INTO hospital (hospital_name, province, email, phone) VALUES (?, ?, ?, ?)', [hospital_name, province, email, phone]);
         res.redirect('/html/pages-hospital_information');
     } catch (err) {
         console.error(err);
@@ -40,8 +40,8 @@ exports.deleteHospital = async (req, res) => {
 // ฟังก์ชันเพื่ออัปเดต hospital
 exports.updateHospital = async (req, res) => {
     try {
-        const { id, hospital_name, province } = req.body;
-        await db.query('UPDATE hospital SET hospital_name = ?, province = ? WHERE id = ?', [hospital_name, province, id]);
+        const { id, hospital_name, province, email, phone } = req.body;
+        await db.query('UPDATE hospital SET hospital_name = ?, province = ?, email = ?, phone = ? WHERE id = ?', [hospital_name, province, email, phone, id]);
         res.redirect('/html/pages-hospital_information');
     } catch (err) {
         console.error(err);
