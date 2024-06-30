@@ -232,6 +232,7 @@
                                         <th style="text-transform: none; font-size: 15px;">Date</th>
                                         <th style="text-transform: none; font-size: 15px;">ชื่ออุปกรณ์</th>
                                         <th style="text-transform: none; font-size: 15px;">ID. No.</th>
+                                        <th style="text-transform: none; font-size: 15px;">Status</th>
                                         <th style="text-transform: none; font-size: 15px;">Actions</th>
                                     </tr>
                                 </thead>
@@ -249,6 +250,9 @@
                                             <td class="equipment-id_no">
                                                 <span><%= equipment['ID. No.'] %></span>
                                                 <input class="form-control" type="text" name="id_no" value="<%= equipment['ID. No.'] %>" style="display:none;">
+                                            </td>
+                                            <td>
+                                              <a href="/html/pages-gate_equipment_by_id/<%= equipment.id %>/<%= equipment.id_hospital %>/<%= equipment.id_categories %>" class="badge bg-label-warning me-1">Pending</a>
                                             </td>
                                             <td>
                                               <div class="d-inline-block">
