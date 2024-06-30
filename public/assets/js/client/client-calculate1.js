@@ -1,13 +1,12 @@
-
 // ฟังก์ชันสำหรับดึงข้อมูล inputs จากเซิร์ฟเวอร์
 function fetchInputs() {
-  fetch('/get-inputs1')
-    .then(response => response.json())
+  fetch('/get-inputs1') // เรียกข้อมูลจากเซิร์ฟเวอร์
+    .then(response => response.json()) // แปลงข้อมูลที่ได้รับเป็น JSON
     .then(data => {
-      if (data.inputs) {
-        Object.keys(data.inputs).forEach(key => {
-          if (document.getElementById(key)) {
-            document.getElementById(key).value = data.inputs[key] || '';
+      if (data.inputs) { // ตรวจสอบว่ามีข้อมูล inputs หรือไม่
+        Object.keys(data.inputs).forEach(key => { // วนลูปผ่านทุกคีย์ใน inputs
+          if (document.getElementById(key)) { // ถ้ามีองค์ประกอบในหน้า HTML ที่มี ID ตรงกับคีย์
+            document.getElementById(key).value = data.inputs[key] || ''; // ตั้งค่าค่าให้กับองค์ประกอบนั้น
           }
         });
 
@@ -27,9 +26,9 @@ function fetchInputs() {
 
 // ฟังก์ชันส่งข้อมูล inputs ไปยังเซิร์ฟเวอร์
 function sendInputs(inputs) {
-  const socket = io();
-  socket.emit('calculate', inputs);
-  socket.on('calculatedResult', (data) => {
+  const socket = io(); // สร้างการเชื่อมต่อ Socket.IO
+  socket.emit('calculate', inputs); // ส่งข้อมูล inputs ไปยังเซิร์ฟเวอร์เพื่อคำนวณ
+  socket.on('calculatedResult', (data) => { // รับผลลัพธ์ที่คำนวณแล้วจากเซิร์ฟเวอร์
     document.getElementById('sumResult').textContent = data.sumResult;
     document.getElementById('differenceResult').textContent = data.differenceResult;
     document.getElementById('signatureStatus1').textContent = data.signatureStatus1;
@@ -64,7 +63,7 @@ function sendInputs(inputs) {
 }
 
 // เรียกฟังก์ชัน fetchInputs เมื่อโหลดหน้าเว็บ
-document.addEventListener('DOMContentLoaded', fetchInputs);
+document.addEventListener('DOMContentLoaded', fetchInputs); // ดึงข้อมูล inputs เมื่อโหลดหน้าเว็บ
 
 // ฟังก์ชันสำหรับกรอกข้อมูลลายเซ็นต์
 document.getElementById('fillSignature1').addEventListener('click', function() {
