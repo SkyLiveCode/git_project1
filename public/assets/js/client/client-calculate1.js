@@ -20,6 +20,11 @@ function fetchInputs() {
 
         // เรียกฟังก์ชันส่งข้อมูลเพื่อแสดงผลลัพธ์เบื้องต้น
         sendInputs(data.inputs);
+
+        // อัพเดทสถานะของ signature1, signature2 และ signature3
+        updateSignatureStatus('signature1', 'bg_signatureStatus1');
+        updateSignatureStatus('signature2', 'bg_signatureStatus2');
+        updateSignatureStatus('signature3', 'bg_signatureStatus3');
       }
     });
 }
@@ -59,6 +64,11 @@ function sendInputs(inputs) {
     document.getElementById('infoinput2').value = data.infoinput2 || '';
     document.getElementById('infoinput3').value = data.infoinput3 || '';
     document.getElementById('infoinput4').value = data.infoinput4 || '';
+
+    // อัพเดทสถานะของ signature1, signature2 และ signature3
+    updateSignatureStatus('signature1', 'bg_signatureStatus1');
+    updateSignatureStatus('signature2', 'bg_signatureStatus2');
+    updateSignatureStatus('signature3', 'bg_signatureStatus3');
   });
 }
 
@@ -72,6 +82,7 @@ document.getElementById('fillSignature1').addEventListener('click', function() {
     signature1Input.value = userName;
     sendInputs(getInputs());
   }
+  updateSignatureStatus('signature1', 'bg_signatureStatus1'); // อัพเดทสถานะของ signature1
 });
 
 document.getElementById('fillSignature2').addEventListener('click', function() {
@@ -80,6 +91,7 @@ document.getElementById('fillSignature2').addEventListener('click', function() {
     signature2Input.value = userName;
     sendInputs(getInputs());
   }
+  updateSignatureStatus('signature2', 'bg_signatureStatus2'); // อัพเดทสถานะของ signature2
 });
 
 document.getElementById('fillSignature3').addEventListener('click', function() {
@@ -88,6 +100,7 @@ document.getElementById('fillSignature3').addEventListener('click', function() {
     signature3Input.value = userName;
     sendInputs(getInputs());
   }
+  updateSignatureStatus('signature3', 'bg_signatureStatus3'); // อัพเดทสถานะของ signature3
 });
 
 // ฟังก์ชันสำหรับดึงข้อมูล inputs จากฟอร์ม
@@ -138,4 +151,32 @@ document.getElementById('signature3').addEventListener('input', function() {
   } else {
     signatureImage.style.display = 'none';
   }
+  updateSignatureStatus('signature3', 'bg_signatureStatus3'); // อัพเดทสถานะของ signature3
+});
+
+// ฟังก์ชันสำหรับอัพเดทสถานะของ signature
+function updateSignatureStatus(inputId, statusId) {
+  const inputElement = document.getElementById(inputId);
+  const statusElement = document.getElementById(statusId);
+
+  if (inputElement.value) {
+    statusElement.className = "mt-2 badge rounded-pill bg-success";
+    statusElement.textContent = "Completed";
+  } else {
+    statusElement.className = "mt-2 badge rounded-pill bg-warning";
+    statusElement.textContent = "Pending";
+  }
+}
+
+// เพิ่ม event listener สำหรับตรวจสอบการเปลี่ยนแปลงของ signature1, signature2 และ signature3
+document.getElementById('signature1').addEventListener('input', function() {
+  updateSignatureStatus('signature1', 'bg_signatureStatus1');
+});
+
+document.getElementById('signature2').addEventListener('input', function() {
+  updateSignatureStatus('signature2', 'bg_signatureStatus2');
+});
+
+document.getElementById('signature3').addEventListener('input', function() {
+  updateSignatureStatus('signature3', 'bg_signatureStatus3');
 });
